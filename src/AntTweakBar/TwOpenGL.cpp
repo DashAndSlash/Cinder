@@ -53,47 +53,47 @@ PFNGLBindVertexArray _glBindVertexArray = NULL;
 PFNGLEnableVertexAttribArray _glEnableVertexAttribArray = NULL;
 PFNGLDisableVertexAttribArray _glDisableVertexAttribArray = NULL;
 PFNGLGetVertexAttribiv _glGetVertexAttribiv = NULL;
-#ifndef GL_ARRAY_BUFFER_ARB
-#   define GL_ARRAY_BUFFER_ARB 0x8892
+#ifndef GL_ARRAY_BUFFER
+#   define GL_ARRAY_BUFFER 0x8892
 #endif
-#ifndef GL_ELEMENT_ARRAY_BUFFER_ARB
-#   define GL_ELEMENT_ARRAY_BUFFER_ARB 0x8893
+#ifndef GL_ELEMENT_ARRAY_BUFFER
+#   define GL_ELEMENT_ARRAY_BUFFER 0x8893
 #endif
-#ifndef GL_ARRAY_BUFFER_BINDING_ARB
-#   define GL_ARRAY_BUFFER_BINDING_ARB 0x8894
+#ifndef GL_ARRAY_BUFFER_BINDING
+#   define GL_ARRAY_BUFFER_BINDING 0x8894
 #endif
-#ifndef GL_ELEMENT_ARRAY_BUFFER_BINDING_ARB
-#   define GL_ELEMENT_ARRAY_BUFFER_BINDING_ARB 0x8895
+#ifndef GL_ELEMENT_ARRAY_BUFFER_BINDING
+#   define GL_ELEMENT_ARRAY_BUFFER_BINDING 0x8895
 #endif
-#ifndef GL_VERTEX_PROGRAM_ARB
-#   define GL_VERTEX_PROGRAM_ARB 0x8620
+#ifndef GL_VERTEX_PROGRAM
+#   define GL_VERTEX_PROGRAM 0x8620
 #endif
-#ifndef GL_FRAGMENT_PROGRAM_ARB
-#   define GL_FRAGMENT_PROGRAM_ARB 0x8804
+#ifndef GL_FRAGMENT_PROGRAM
+#   define GL_FRAGMENT_PROGRAM 0x8804
 #endif
-#ifndef GL_PROGRAM_OBJECT_ARB
-#   define GL_PROGRAM_OBJECT_ARB 0x8B40
+#ifndef GL_PROGRAM_OBJECT
+#   define GL_PROGRAM_OBJECT 0x8B40
 #endif
 #ifndef GL_TEXTURE_3D
 #   define GL_TEXTURE_3D 0x806F
 #endif
-#ifndef GL_TEXTURE0_ARB
-#   define GL_TEXTURE0_ARB 0x84C0
+#ifndef GL_TEXTURE0
+#   define GL_TEXTURE0 0x84C0
 #endif
-#ifndef GL_ACTIVE_TEXTURE_ARB
-#   define GL_ACTIVE_TEXTURE_ARB 0x84E0
+#ifndef GL_ACTIVE_TEXTURE
+#   define GL_ACTIVE_TEXTURE 0x84E0
 #endif
-#ifndef GL_CLIENT_ACTIVE_TEXTURE_ARB
-#   define GL_CLIENT_ACTIVE_TEXTURE_ARB 0x84E1
+#ifndef GL_CLIENT_ACTIVE_TEXTURE
+#   define GL_CLIENT_ACTIVE_TEXTURE 0x84E1
 #endif
-#ifndef GL_MAX_TEXTURE_UNITS_ARB
-#   define GL_MAX_TEXTURE_UNITS_ARB 0x84E2
+#ifndef GL_MAX_TEXTURE_UNITS
+#   define GL_MAX_TEXTURE_UNITS 0x84E2
 #endif
 #ifndef GL_MAX_TEXTURE_COORDS
 #   define GL_MAX_TEXTURE_COORDS 0x8871
 #endif
-#ifndef GL_TEXTURE_RECTANGLE_ARB
-#   define GL_TEXTURE_RECTANGLE_ARB 0x84F5
+#ifndef GL_TEXTURE_RECTANGLE
+#   define GL_TEXTURE_RECTANGLE 0x84F5
 #endif
 #ifndef GL_FUNC_ADD
 #   define GL_FUNC_ADD 0x8006
@@ -140,7 +140,7 @@ PFNGLGetVertexAttribiv _glGetVertexAttribiv = NULL;
         {
             sprintf(msg, "%s(%d) : [%s] GL_ERROR=0x%x\n", file, line, func, err);
             #ifdef ANT_WINDOWS
-                OutputDebugStringA(msg);
+                OutputDebugString(msg);
             #endif
             fprintf(stderr, msg);
         }
@@ -264,7 +264,7 @@ void CTwGraphOpenGL::BeginDraw(int _WndWidth, int _WndHeight)
     {
         const char *ext = (const char *)_glGetString(GL_EXTENSIONS);
         if( ext!=0 && strlen(ext)>0 )
-            m_SupportTexRect = (strstr(ext, "GL_ARB_texture_rectangle")!=NULL);
+            m_SupportTexRect = (strstr(ext, "GL_texture_rectangle")!=NULL);
         s_SupportTexRectChecked = true;
     }
 //#endif
@@ -274,10 +274,10 @@ void CTwGraphOpenGL::BeginDraw(int _WndWidth, int _WndHeight)
 
     if( _glActiveTextureARB )
     {
-        _glGetIntegerv(GL_ACTIVE_TEXTURE_ARB, &m_PrevActiveTextureARB);
-        _glGetIntegerv(GL_CLIENT_ACTIVE_TEXTURE_ARB, &m_PrevClientActiveTextureARB);
+        _glGetIntegerv(GL_ACTIVE_TEXTURE, &m_PrevActiveTextureARB);
+        _glGetIntegerv(GL_CLIENT_ACTIVE_TEXTURE, &m_PrevClientActiveTextureARB);
         GLint maxTexUnits = 1;
-        _glGetIntegerv(GL_MAX_TEXTURE_COORDS, &maxTexUnits); // was GL_MAX_TEXTURE_UNITS_ARB
+        _glGetIntegerv(GL_MAX_TEXTURE_COORDS, &maxTexUnits); // was GL_MAX_TEXTURE_UNITS
         if( maxTexUnits<1 ) 
             maxTexUnits = 1;
         else if( maxTexUnits > MAX_TEXTURES )
@@ -285,7 +285,7 @@ void CTwGraphOpenGL::BeginDraw(int _WndWidth, int _WndHeight)
         GLint i;
         for( i=0; i<maxTexUnits; ++i )
         {
-            _glActiveTextureARB(GL_TEXTURE0_ARB+i);
+            _glActiveTextureARB(GL_TEXTURE0+i);
             m_PrevActiveTexture1D[i] = _glIsEnabled(GL_TEXTURE_1D);
             m_PrevActiveTexture2D[i] = _glIsEnabled(GL_TEXTURE_2D);
             m_PrevActiveTexture3D[i] = _glIsEnabled(GL_TEXTURE_3D);
@@ -293,15 +293,15 @@ void CTwGraphOpenGL::BeginDraw(int _WndWidth, int _WndHeight)
             _glDisable(GL_TEXTURE_2D);
             _glDisable(GL_TEXTURE_3D);
         }
-        _glActiveTextureARB(GL_TEXTURE0_ARB);
+        _glActiveTextureARB(GL_TEXTURE0);
 
         for( i=0; i<maxTexUnits; i++ )
         {
-            _glClientActiveTextureARB(GL_TEXTURE0_ARB+i);
+            _glClientActiveTextureARB(GL_TEXTURE0+i);
             m_PrevClientTexCoordArray[i] = _glIsEnabled(GL_TEXTURE_COORD_ARRAY);
             _glDisableClientState(GL_TEXTURE_COORD_ARRAY);
         }
-        _glClientActiveTextureARB(GL_TEXTURE0_ARB);
+        _glClientActiveTextureARB(GL_TEXTURE0);
     }
 
     _glMatrixMode(GL_TEXTURE);
@@ -387,21 +387,21 @@ void CTwGraphOpenGL::BeginDraw(int _WndWidth, int _WndHeight)
     if( _glBindBufferARB!=NULL )
     {
         m_PrevArrayBufferARB = m_PrevElementArrayBufferARB = 0;
-        _glGetIntegerv(GL_ARRAY_BUFFER_BINDING_ARB, &m_PrevArrayBufferARB);
-        _glGetIntegerv(GL_ELEMENT_ARRAY_BUFFER_BINDING_ARB, &m_PrevElementArrayBufferARB);
-        _glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
-        _glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
+        _glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &m_PrevArrayBufferARB);
+        _glGetIntegerv(GL_ELEMENT_ARRAY_BUFFER_BINDING, &m_PrevElementArrayBufferARB);
+        _glBindBufferARB(GL_ARRAY_BUFFER, 0);
+        _glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
     if( _glBindProgramARB!=NULL )
     {
-        m_PrevVertexProgramARB = _glIsEnabled(GL_VERTEX_PROGRAM_ARB);
-        m_PrevFragmentProgramARB = _glIsEnabled(GL_FRAGMENT_PROGRAM_ARB);
-        _glDisable(GL_VERTEX_PROGRAM_ARB);
-        _glDisable(GL_FRAGMENT_PROGRAM_ARB);
+        m_PrevVertexProgramARB = _glIsEnabled(GL_VERTEX_PROGRAM);
+        m_PrevFragmentProgramARB = _glIsEnabled(GL_FRAGMENT_PROGRAM);
+        _glDisable(GL_VERTEX_PROGRAM);
+        _glDisable(GL_FRAGMENT_PROGRAM);
     }
     if( _glGetHandleARB!=NULL && _glUseProgramObjectARB!=NULL )
     {
-        m_PrevProgramObjectARB = _glGetHandleARB(GL_PROGRAM_OBJECT_ARB);
+        m_PrevProgramObjectARB = _glGetHandleARB(GL_PROGRAM_OBJECT);
         _glUseProgramObjectARB(0);
     }
     _glDisable(GL_TEXTURE_1D);
@@ -414,8 +414,8 @@ void CTwGraphOpenGL::BeginDraw(int _WndWidth, int _WndHeight)
 
     if( m_SupportTexRect )
     {
-        m_PrevTexRectARB = _glIsEnabled(GL_TEXTURE_RECTANGLE_ARB);
-        _glDisable(GL_TEXTURE_RECTANGLE_ARB);
+        m_PrevTexRectARB = _glIsEnabled(GL_TEXTURE_RECTANGLE);
+        _glDisable(GL_TEXTURE_RECTANGLE);
     }
     if( _glBlendEquationSeparate!=NULL )
     {
@@ -465,22 +465,22 @@ void CTwGraphOpenGL::EndDraw()
         _glBindVertexArray(m_PrevVertexArray);
     if( _glBindBufferARB!=NULL )
     {
-        _glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_PrevArrayBufferARB);
-        _glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, m_PrevElementArrayBufferARB);
+        _glBindBufferARB(GL_ARRAY_BUFFER, m_PrevArrayBufferARB);
+        _glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER, m_PrevElementArrayBufferARB);
     }
     if( _glBindProgramARB!=NULL )
     {
         if( m_PrevVertexProgramARB )
-            _glEnable(GL_VERTEX_PROGRAM_ARB);
+            _glEnable(GL_VERTEX_PROGRAM);
         if( m_PrevFragmentProgramARB )
-            _glEnable(GL_FRAGMENT_PROGRAM_ARB);
+            _glEnable(GL_FRAGMENT_PROGRAM);
     }
     if( _glGetHandleARB!=NULL && _glUseProgramObjectARB!=NULL )
         _glUseProgramObjectARB(m_PrevProgramObjectARB);
     if( _glTexImage3D!=NULL && m_PrevTexture3D )
         _glEnable(GL_TEXTURE_3D);
     if( m_SupportTexRect && m_PrevTexRectARB )
-        _glEnable(GL_TEXTURE_RECTANGLE_ARB);
+        _glEnable(GL_TEXTURE_RECTANGLE);
     if( _glBlendEquation!=NULL )
         _glBlendEquation(m_PrevBlendEquation);
     if( _glBlendEquationSeparate!=NULL )
@@ -504,7 +504,7 @@ void CTwGraphOpenGL::EndDraw()
     if( _glActiveTextureARB )
     {
         GLint maxTexUnits = 1;
-        _glGetIntegerv(GL_MAX_TEXTURE_COORDS, &maxTexUnits); // was GL_MAX_TEXTURE_UNITS_ARB
+        _glGetIntegerv(GL_MAX_TEXTURE_COORDS, &maxTexUnits); // was GL_MAX_TEXTURE_UNITS
         if( maxTexUnits<1 ) 
             maxTexUnits = 1;
         else if( maxTexUnits > MAX_TEXTURES )
@@ -512,7 +512,7 @@ void CTwGraphOpenGL::EndDraw()
         GLint i;
         for( i=0; i<maxTexUnits; ++i )
         {
-            _glActiveTextureARB(GL_TEXTURE0_ARB+i);
+            _glActiveTextureARB(GL_TEXTURE0+i);
             if( m_PrevActiveTexture1D[i] )
                 _glEnable(GL_TEXTURE_1D);
             if( m_PrevActiveTexture2D[i] )
@@ -524,7 +524,7 @@ void CTwGraphOpenGL::EndDraw()
 
         for( i=0; i<maxTexUnits; ++i )
         {
-            _glClientActiveTextureARB(GL_TEXTURE0_ARB+i);
+            _glClientActiveTextureARB(GL_TEXTURE0+i);
             if( m_PrevClientTexCoordArray[i] )
                 _glEnableClientState(GL_TEXTURE_COORD_ARRAY);
         }
