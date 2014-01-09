@@ -25,8 +25,8 @@
 #include "cinder/Cinder.h"
 
 #if defined( CINDER_MAC )
-	#include <OpenGL/gl.h>
-	#include <OpenGL/glext.h>
+	#include <OpenGL/gl3.h>
+	#include <OpenGL/gl3ext.h>
 #elif defined( CINDER_MSW )
 	#include "cinder/gl/GLee.h"
 #else
@@ -53,7 +53,7 @@
 	#include <OpenGLES/ES1/gl.h>
 	#include <OpenGLES/ES1/glext.h>
 #elif defined( CINDER_MAC )
-	#include <OpenGL/gl.h>
+	#include <OpenGL/gl3.h>
 #endif
 
 // forward declarations
@@ -67,7 +67,7 @@ namespace cinder {
 } // namespace cinder
 
 namespace cinder { namespace gl {
-
+	
 //! Returns whether a particular OpenGL extension is available. Caches results
 bool isExtensionAvailable( const std::string &extName );
 
@@ -150,38 +150,72 @@ inline void rotate( float degrees ) { rotate( Vec3f( 0, 0, degrees ) ); }
 
 #if ! defined( CINDER_GLES )
 //! Equivalent to glBegin() in immediate mode
-inline void begin( GLenum mode ) { glBegin( mode ); }
+inline void begin( GLenum mode ) {
+//	glBegin( mode );
+}
 //! Equivalent to glEnd() in immediate mode
-inline void end() { glEnd(); }
+inline void end() {
+//	glEnd();
+}
 //! Used between calls to gl::begin() and \c gl::end(), appends a vertex to the current primitive.
-inline void vertex( const Vec2f &v ) { glVertex2fv( &v.x ); }
+inline void vertex( const Vec2f &v ) {
+//	glVertex2fv( &v.x );
+}
 //! Used between calls to gl::begin() and \c gl::end(), appends a vertex to the current primitive.
-inline void vertex( float x, float y ) { glVertex2f( x, y ); }
+inline void vertex( float x, float y ) {
+//	glVertex2f( x, y );
+}
 //! Used between calls to gl::begin() and \c gl::end(), appends a vertex to the current primitive.
-inline void vertex( const Vec3f &v ) { glVertex3fv( &v.x ); }
+inline void vertex( const Vec3f &v ) {
+//	glVertex3fv( &v.x );
+}
 //! Used between calls to gl::begin() and \c gl::end(), appends a vertex to the current primitive.
-inline void vertex( float x, float y, float z ) { glVertex3f( x, y, z ); }
+inline void vertex( float x, float y, float z ) {
+//	glVertex3f( x, y, z );
+}
 //! Used between calls to gl::begin() and gl::end(), sets the 2D texture coordinate for the next vertex.
-inline void texCoord( float x, float y ) { glTexCoord2f( x, y ); }
+inline void texCoord( float x, float y ) {
+//	glTexCoord2f( x, y );
+}
 //! Used between calls to gl::begin() and gl::end(), sets the 2D texture coordinate for the next vertex.
-inline void texCoord( const Vec2f &v ) { glTexCoord2f( v.x, v.y ); }
+inline void texCoord( const Vec2f &v ) {
+//	glTexCoord2f( v.x, v.y );
+}
 //! Used between calls to gl::begin() and gl::end(), sets the 3D texture coordinate for the next vertex.
-inline void texCoord( float x, float y, float z ) { glTexCoord3f( x, y, z ); }
+inline void texCoord( float x, float y, float z ) {
+//	glTexCoord3f( x, y, z );
+}
 //! Used between calls to gl::begin() and gl::end(), sets the 3D texture coordinate for the next vertex.
-inline void texCoord( const Vec3f &v ) { glTexCoord3f( v.x, v.y, v.z ); }
+inline void texCoord( const Vec3f &v ) {
+//	glTexCoord3f( v.x, v.y, v.z );
+}
 #endif // ! defined( CINDER_GLES )
 //! Sets the current color and the alpha value to 1.0
-inline void color( float r, float g, float b ) { glColor4f( r, g, b, 1.0f ); }
+inline void color( float r, float g, float b ) {
+//	glColor4f( r, g, b, 1.0f );
+}
 //! Sets the current color and alpha value
-inline void color( float r, float g, float b, float a ) { glColor4f( r, g, b, a ); }
+inline void color( float r, float g, float b, float a ) {
+//	glColor4f( r, g, b, a );
+}
 //! Sets the current color, and the alpha value to 1.0
-inline void color( const Color8u &c ) { glColor4ub( c.r, c.g, c.b, 255 ); }
+inline void color( const Color8u &c ) {
+//	glColor4ub( c.r, c.g, c.b, 255 );
+}
 //! Sets the current color and alpha value
-inline void color( const ColorA8u &c ) { glColor4ub( c.r, c.g, c.b, c.a ); }
+inline void color( const ColorA8u &c ) {
+//	glColor4ub( c.r, c.g, c.b, c.a );
+}
 //! Sets the current color, and the alpha value to 1.0
-inline void color( const Color &c ) { glColor4f( c.r, c.g, c.b, 1.0f ); }
+inline void color( const Color &c ) {
+//	glColor4f( c.r, c.g, c.b, 1.0f );
+	//Core::setColor(c);
+	
+}
 //! Sets the current color and alpha value
-inline void color( const ColorA &c ) { glColor4f( c.r, c.g, c.b, c.a ); }
+inline void color( const ColorA &c ) {
+//	glColor4f( c.r, c.g, c.b, c.a );
+}
 
 //! Enables the OpenGL State \a state. Equivalent to calling to glEnable( state );
 inline void enable( GLenum state ) { glEnable( state ); }
@@ -372,6 +406,8 @@ struct SaveFramebufferBinding {
 	GLint		mOldValue;
 };
 
+	
+
 #if defined( CINDER_MSW )
 //! Initializes the GLee library. This is generally called automatically by the application and is only necessary if you need to use GLee before your app's setup() method is called.
 void initializeGlee();
@@ -388,24 +424,50 @@ class ExceptionUnknownTarget : public Exception {
 //@{
 //! Global overloads for OpenGL free functions to allow the use of Cinder types natively
 #if ! defined( CINDER_GLES )
-inline void glVertex2f( const cinder::Vec2f &v ) { glVertex2f( v.x, v.y ); }
-inline void glVertex3f( const cinder::Vec3f &v ) { glVertex3f( v.x, v.y, v.z ); }
-inline void glVertex4f( const cinder::Vec4f &v ) { glVertex4f( v.x, v.y, v.z, v.w ); }
-inline void glNormal3f( const cinder::Vec3f &v ) { glNormal3f( v.x, v.y, v.z ); }
-inline void glColor3f( const cinder::Color &c ) { glColor3f( c.r, c.g, c.b ); }
-inline void glColor4f( const cinder::ColorA &c ) { glColor4f( c.r, c.g, c.b, c.a ); }
-inline void glTexCoord2f( const cinder::Vec2f &v ) { glTexCoord2f( v.x, v.y ); }
-inline void glTexCoord3f( const cinder::Vec3f &v ) { glTexCoord3f( v.x, v.y, v.z ); }
-inline void glTexCoord4f( const cinder::Vec4f &v ) { glTexCoord4f( v.x, v.y, v.z, v.w ); }
+inline void glVertex2f( const cinder::Vec2f &v ) {
+//	glVertex2f( v.x, v.y );
+}
+inline void glVertex3f( const cinder::Vec3f &v ) {
+//	glVertex3f( v.x, v.y, v.z );
+}
+inline void glVertex4f( const cinder::Vec4f &v ) {
+//	glVertex4f( v.x, v.y, v.z, v.w );
+}
+inline void glNormal3f( const cinder::Vec3f &v ) {
+//	glNormal3f( v.x, v.y, v.z );
+}
+inline void glColor3f( const cinder::Color &c ) {
+//	glColor3f( c.r, c.g, c.b );
+}
+inline void glColor4f( const cinder::ColorA &c ) {
+//	glColor4f( c.r, c.g, c.b, c.a );
+}
+inline void glTexCoord2f( const cinder::Vec2f &v ) {
+//	glTexCoord2f( v.x, v.y );
+}
+inline void glTexCoord3f( const cinder::Vec3f &v ) {
+//	glTexCoord3f( v.x, v.y, v.z );
+}
+inline void glTexCoord4f( const cinder::Vec4f &v ) {
+//	glTexCoord4f( v.x, v.y, v.z, v.w );
+}
 // This style of definition conflicts with GLee
 //inline void glMultiTexCoord2f( GLenum target, const cinder::Vec2f &v ) { glMultiTexCoord2f( target, v.x, v.y ); }
 //inline void glMultiTexCoord3f( GLenum target, const cinder::Vec3f &v ) { glMultiTexCoord3f( target, v.x, v.y, v.z ); }
 //inline void glMultiTexCoord4f( GLenum target, const cinder::Vec4f &v ) { glMultiTexCoord4f( target, v.x, v.y, v.z, v.w ); }
 #endif // ! defined( CINDER_GLES )
-inline void glTranslatef( const cinder::Vec3f &v ) { glTranslatef( v.x, v.y, v.z ); }
-inline void glScalef( const cinder::Vec3f &v ) { glScalef( v.x, v.y, v.z ); }
-inline void glRotatef( float angle, const cinder::Vec3f &v ) { glRotatef( angle, v.x, v.y, v.z ); }
-inline void glRotatef( const cinder::Quatf &quat ) { cinder::Vec3f axis; float angle; quat.getAxisAngle( &axis, &angle ); glRotatef( cinder::toDegrees( angle ), axis.x, axis.y, axis.z ); }
+inline void glTranslatef( const cinder::Vec3f &v ) {
+//	glTranslatef( v.x, v.y, v.z );
+}
+inline void glScalef( const cinder::Vec3f &v ) {
+//	glScalef( v.x, v.y, v.z );
+}
+inline void glRotatef( float angle, const cinder::Vec3f &v ) {
+//	glRotatef( angle, v.x, v.y, v.z );
+}
+inline void glRotatef( const cinder::Quatf &quat ) { cinder::Vec3f axis; float angle; quat.getAxisAngle( &axis, &angle );
+//	glRotatef( cinder::toDegrees( angle ), axis.x, axis.y, axis.z );
+}
 inline void glMultMatrixf( const cinder::Matrix44f &m ) { glMultMatrixf( m.m ); }
 inline void glLoadMatrixf( const cinder::Matrix44f &m ) { glLoadMatrixf( m.m ); }
 //@}

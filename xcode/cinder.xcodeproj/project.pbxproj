@@ -45,8 +45,6 @@
 		00241ABB0E830DC7004D34EB /* MouseEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 00241ABA0E830DC7004D34EB /* MouseEvent.h */; };
 		00241ABF0E830DD5004D34EB /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 00241ABC0E830DD5004D34EB /* Camera.cpp */; };
 		00241AC00E830DD5004D34EB /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 00241ABD0E830DD5004D34EB /* Matrix.cpp */; };
-		002CFA601644BBF400C1A31D /* StereoAutoFocuser.h in Headers */ = {isa = PBXBuildFile; fileRef = 002CFA5F1644BBF400C1A31D /* StereoAutoFocuser.h */; };
-		002CFA621644BC0800C1A31D /* StereoAutoFocuser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 002CFA611644BC0800C1A31D /* StereoAutoFocuser.cpp */; };
 		002DFC060FA50D0200E45AE0 /* TriMesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 002DFC050FA50D0200E45AE0 /* TriMesh.h */; };
 		002DFC080FA50D1600E45AE0 /* TriMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 002DFC070FA50D1600E45AE0 /* TriMesh.cpp */; };
 		002DFD510FA5600900E45AE0 /* ObjLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 002DFD500FA5600900E45AE0 /* ObjLoader.cpp */; };
@@ -89,18 +87,14 @@
 		003ADB801038973700ACF6F2 /* AntPerfTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 003ADB6C1038973700ACF6F2 /* AntPerfTimer.h */; };
 		003ADB811038973700ACF6F2 /* TwGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 003ADB6D1038973700ACF6F2 /* TwGraph.h */; };
 		003ADB821038973700ACF6F2 /* TwFonts.h in Headers */ = {isa = PBXBuildFile; fileRef = 003ADB6E1038973700ACF6F2 /* TwFonts.h */; };
-		003ADB831038973700ACF6F2 /* TwOpenGL.h in Headers */ = {isa = PBXBuildFile; fileRef = 003ADB6F1038973700ACF6F2 /* TwOpenGL.h */; };
-		003ADB841038973700ACF6F2 /* LoadOGL.h in Headers */ = {isa = PBXBuildFile; fileRef = 003ADB701038973700ACF6F2 /* LoadOGL.h */; };
 		003ADB851038973700ACF6F2 /* TwColors.h in Headers */ = {isa = PBXBuildFile; fileRef = 003ADB711038973700ACF6F2 /* TwColors.h */; };
 		003ADB861038973700ACF6F2 /* resource.h in Headers */ = {isa = PBXBuildFile; fileRef = 003ADB721038973700ACF6F2 /* resource.h */; };
 		003ADB871038973700ACF6F2 /* TwPrecomp.h in Headers */ = {isa = PBXBuildFile; fileRef = 003ADB731038973700ACF6F2 /* TwPrecomp.h */; };
 		003ADB881038973700ACF6F2 /* TwMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 003ADB741038973700ACF6F2 /* TwMgr.h */; };
 		003ADB971038974A00ACF6F2 /* TwMgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 003ADB891038974A00ACF6F2 /* TwMgr.cpp */; };
 		003ADB981038974A00ACF6F2 /* TwPrecomp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 003ADB8A1038974A00ACF6F2 /* TwPrecomp.cpp */; };
-		003ADB991038974A00ACF6F2 /* LoadOGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 003ADB8B1038974A00ACF6F2 /* LoadOGL.cpp */; };
 		003ADB9A1038974A00ACF6F2 /* TwFonts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 003ADB8C1038974A00ACF6F2 /* TwFonts.cpp */; };
 		003ADB9B1038974A00ACF6F2 /* TwColors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 003ADB8D1038974A00ACF6F2 /* TwColors.cpp */; };
-		003ADB9C1038974A00ACF6F2 /* TwOpenGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 003ADB8E1038974A00ACF6F2 /* TwOpenGL.cpp */; };
 		003ADB9D1038974A00ACF6F2 /* TwBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 003ADB8F1038974A00ACF6F2 /* TwBar.cpp */; };
 		003ADBA01038996800ACF6F2 /* AntTweakBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 003ADB9E1038996800ACF6F2 /* AntTweakBar.h */; };
 		003C0CE715A34D3F00FF29F5 /* AppCocoaView.h in Headers */ = {isa = PBXBuildFile; fileRef = 003C0CE615A34D3F00FF29F5 /* AppCocoaView.h */; };
@@ -247,7 +241,6 @@
 		007050371114F93F003FCAE4 /* ImageSourceFileQuartz.h in Headers */ = {isa = PBXBuildFile; fileRef = 009FD55410C9DB0600D63B1B /* ImageSourceFileQuartz.h */; };
 		007050381114F93F003FCAE4 /* DataTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = 00BC898C10D2BEA200D6DC59 /* DataTarget.h */; };
 		007050391114F93F003FCAE4 /* ImageTargetFileQuartz.h in Headers */ = {isa = PBXBuildFile; fileRef = 00BC89F110D2EA2200D6DC59 /* ImageTargetFileQuartz.h */; };
-		0070503A1114F93F003FCAE4 /* TileRender.h in Headers */ = {isa = PBXBuildFile; fileRef = 00FCDC1F10D4387D006140C7 /* TileRender.h */; };
 		0070503B1114F93F003FCAE4 /* ImageIo.h in Headers */ = {isa = PBXBuildFile; fileRef = 009C864910F3D5CB006B6861 /* ImageIo.h */; };
 		0070503C1114F93F003FCAE4 /* Shape2d.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1337610FBBB8900AC7369 /* Shape2d.h */; };
 		0070503D1114F93F003FCAE4 /* EdgeDetect.h in Headers */ = {isa = PBXBuildFile; fileRef = 00419C7711057CDB007EC9AD /* EdgeDetect.h */; };
@@ -555,7 +548,6 @@
 		00CFD98D1135C3520091E310 /* ImageSourceFileQuartz.h in Headers */ = {isa = PBXBuildFile; fileRef = 009FD55410C9DB0600D63B1B /* ImageSourceFileQuartz.h */; };
 		00CFD98E1135C3520091E310 /* DataTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = 00BC898C10D2BEA200D6DC59 /* DataTarget.h */; };
 		00CFD98F1135C3520091E310 /* ImageTargetFileQuartz.h in Headers */ = {isa = PBXBuildFile; fileRef = 00BC89F110D2EA2200D6DC59 /* ImageTargetFileQuartz.h */; };
-		00CFD9901135C3520091E310 /* TileRender.h in Headers */ = {isa = PBXBuildFile; fileRef = 00FCDC1F10D4387D006140C7 /* TileRender.h */; };
 		00CFD9911135C3520091E310 /* ImageIo.h in Headers */ = {isa = PBXBuildFile; fileRef = 009C864910F3D5CB006B6861 /* ImageIo.h */; };
 		00CFD9921135C3520091E310 /* Shape2d.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B1337610FBBB8900AC7369 /* Shape2d.h */; };
 		00CFD9931135C3520091E310 /* EdgeDetect.h in Headers */ = {isa = PBXBuildFile; fileRef = 00419C7711057CDB007EC9AD /* EdgeDetect.h */; };
@@ -618,8 +610,6 @@
 		00CFDB661135EBC40091E310 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 00E45D0A0E94792600B47EC2 /* Texture.cpp */; };
 		00CFDD5E113636AE0091E310 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 00C150A40ED8F88100549EF3 /* Light.cpp */; };
 		00CFDD5F113636AE0091E310 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 00C150A40ED8F88100549EF3 /* Light.cpp */; };
-		00CFDD60113636BD0091E310 /* TileRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 00FCDC1B10D434AC006140C7 /* TileRender.cpp */; };
-		00CFDD61113636BD0091E310 /* TileRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 00FCDC1B10D434AC006140C7 /* TileRender.cpp */; };
 		00CFDD8811363AF50091E310 /* App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 002419D30E8035E1004D34EB /* App.cpp */; };
 		00CFDD8911363AF60091E310 /* App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 002419D30E8035E1004D34EB /* App.cpp */; };
 		00CFE37D113B85F60091E310 /* Path2d.h in Headers */ = {isa = PBXBuildFile; fileRef = 00CFE37B113B85F60091E310 /* Path2d.h */; };
@@ -647,8 +637,6 @@
 		00E5A41F163F5AC600AACB3A /* CaptureImplCocoaDummy.mm in Sources */ = {isa = PBXBuildFile; fileRef = 00E5A41D163F5AC500AACB3A /* CaptureImplCocoaDummy.mm */; };
 		00F3BD1D0EBF88AA00382AC1 /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 00F3BD1C0EBF88AA00382AC1 /* Utilities.cpp */; };
 		00F3BD200EBF89B700382AC1 /* Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 00F3BD1F0EBF89B700382AC1 /* Utilities.h */; };
-		00FCDC1C10D434AC006140C7 /* TileRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 00FCDC1B10D434AC006140C7 /* TileRender.cpp */; };
-		00FCDC2010D4387D006140C7 /* TileRender.h in Headers */ = {isa = PBXBuildFile; fileRef = 00FCDC1F10D4387D006140C7 /* TileRender.h */; };
 		1161C977165C7DFB00268A5E /* ImageTargetFileQuartz.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 00BC8A0810D2EE2000D6DC59 /* ImageTargetFileQuartz.cpp */; };
 		1161C978165C7DFC00268A5E /* ImageTargetFileQuartz.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 00BC8A0810D2EE2000D6DC59 /* ImageTargetFileQuartz.cpp */; };
 		1161C979165C847200268A5E /* ImageSourceFileQuartz.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 009FD55610CAB8B700D63B1B /* ImageSourceFileQuartz.cpp */; };
@@ -660,12 +648,6 @@
 		434708D91267EE4300AA7349 /* Blend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 434708D81267EE4300AA7349 /* Blend.cpp */; };
 		434708DA1267EE4300AA7349 /* Blend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 434708D81267EE4300AA7349 /* Blend.cpp */; };
 		434708DB1267EE4300AA7349 /* Blend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 434708D81267EE4300AA7349 /* Blend.cpp */; };
-		4354C47C1357BBED00120EE3 /* TextureFont.h in Headers */ = {isa = PBXBuildFile; fileRef = 4354C47B1357BBED00120EE3 /* TextureFont.h */; };
-		4354C47D1357BBF200120EE3 /* TextureFont.h in Headers */ = {isa = PBXBuildFile; fileRef = 4354C47B1357BBED00120EE3 /* TextureFont.h */; };
-		4354C47E1357BBF300120EE3 /* TextureFont.h in Headers */ = {isa = PBXBuildFile; fileRef = 4354C47B1357BBED00120EE3 /* TextureFont.h */; };
-		4354C4801357BC1100120EE3 /* TextureFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4354C47F1357BC1100120EE3 /* TextureFont.cpp */; };
-		4354C4811357BC1100120EE3 /* TextureFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4354C47F1357BC1100120EE3 /* TextureFont.cpp */; };
-		4354C4821357BC1100120EE3 /* TextureFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4354C47F1357BC1100120EE3 /* TextureFont.cpp */; };
 		43C432401450A8DA0095B260 /* CinderMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43C4323F1450A8DA0095B260 /* CinderMath.cpp */; };
 		43C432411450A8DA0095B260 /* CinderMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43C4323F1450A8DA0095B260 /* CinderMath.cpp */; };
 		43C432421450A8DA0095B260 /* CinderMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43C4323F1450A8DA0095B260 /* CinderMath.cpp */; };
@@ -688,6 +670,14 @@
 		43F78EF81516DAE200EB63B5 /* Json.h in Headers */ = {isa = PBXBuildFile; fileRef = 43F78EF51516DAE200EB63B5 /* Json.h */; };
 		5391FD680E957646002A13D5 /* KeyEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 5391FD670E957646002A13D5 /* KeyEvent.h */; };
 		5391FE660E95CB01002A13D5 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D6A5FE840307C02AAC07 /* AppKit.framework */; };
+		BFF75943186D199900D271D7 /* LoadOGLCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFF75942186D199900D271D7 /* LoadOGLCore.cpp */; };
+		BFF75945186D199E00D271D7 /* LoadOGLCore.h in Headers */ = {isa = PBXBuildFile; fileRef = BFF75944186D199E00D271D7 /* LoadOGLCore.h */; };
+		BFF75947186D19A700D271D7 /* TwOpenGLCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFF75946186D19A700D271D7 /* TwOpenGLCore.cpp */; };
+		BFF75949186D19AB00D271D7 /* TwOpenGLCore.h in Headers */ = {isa = PBXBuildFile; fileRef = BFF75948186D19AB00D271D7 /* TwOpenGLCore.h */; };
+		BFF7594B186E63AC00D271D7 /* TwOpenGL.h in Headers */ = {isa = PBXBuildFile; fileRef = BFF7594A186E63AC00D271D7 /* TwOpenGL.h */; };
+		BFF7594D186E63BA00D271D7 /* TwOpenGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFF7594C186E63BA00D271D7 /* TwOpenGL.cpp */; };
+		BFF7594F186E63CB00D271D7 /* LoadOGL.h in Headers */ = {isa = PBXBuildFile; fileRef = BFF7594E186E63CB00D271D7 /* LoadOGL.h */; };
+		BFF75951186E63D500D271D7 /* LoadOGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFF75950186E63D500D271D7 /* LoadOGL.cpp */; };
 		C70E19FF106AA38700E63577 /* Buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = C70E19FE106AA38700E63577 /* Buffer.h */; };
 		C70E1A03106AA39D00E63577 /* Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C70E1A01106AA39D00E63577 /* Buffer.cpp */; };
 		C727BFE5121B3AE600192073 /* Capture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 007438400EA7924F005DD3E6 /* Capture.cpp */; };
@@ -782,8 +772,6 @@
 		00241ABA0E830DC7004D34EB /* MouseEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MouseEvent.h; path = app/MouseEvent.h; sourceTree = "<group>"; };
 		00241ABC0E830DD5004D34EB /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		00241ABD0E830DD5004D34EB /* Matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix.cpp; sourceTree = "<group>"; };
-		002CFA5F1644BBF400C1A31D /* StereoAutoFocuser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StereoAutoFocuser.h; path = gl/StereoAutoFocuser.h; sourceTree = "<group>"; };
-		002CFA611644BC0800C1A31D /* StereoAutoFocuser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StereoAutoFocuser.cpp; path = gl/StereoAutoFocuser.cpp; sourceTree = "<group>"; };
 		002DFC050FA50D0200E45AE0 /* TriMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriMesh.h; sourceTree = "<group>"; };
 		002DFC070FA50D1600E45AE0 /* TriMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TriMesh.cpp; sourceTree = "<group>"; };
 		002DFD500FA5600900E45AE0 /* ObjLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObjLoader.cpp; sourceTree = "<group>"; };
@@ -810,18 +798,14 @@
 		003ADB6C1038973700ACF6F2 /* AntPerfTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AntPerfTimer.h; path = ../src/AntTweakBar/AntPerfTimer.h; sourceTree = SOURCE_ROOT; };
 		003ADB6D1038973700ACF6F2 /* TwGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TwGraph.h; path = ../src/AntTweakBar/TwGraph.h; sourceTree = SOURCE_ROOT; };
 		003ADB6E1038973700ACF6F2 /* TwFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TwFonts.h; path = ../src/AntTweakBar/TwFonts.h; sourceTree = SOURCE_ROOT; };
-		003ADB6F1038973700ACF6F2 /* TwOpenGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TwOpenGL.h; path = ../src/AntTweakBar/TwOpenGL.h; sourceTree = SOURCE_ROOT; };
-		003ADB701038973700ACF6F2 /* LoadOGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadOGL.h; path = ../src/AntTweakBar/LoadOGL.h; sourceTree = SOURCE_ROOT; };
 		003ADB711038973700ACF6F2 /* TwColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TwColors.h; path = ../src/AntTweakBar/TwColors.h; sourceTree = SOURCE_ROOT; };
 		003ADB721038973700ACF6F2 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = ../src/AntTweakBar/resource.h; sourceTree = SOURCE_ROOT; };
-		003ADB731038973700ACF6F2 /* TwPrecomp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TwPrecomp.h; path = ../src/AntTweakBar/TwPrecomp.h; sourceTree = SOURCE_ROOT; };
+		003ADB731038973700ACF6F2 /* TwPrecomp.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp.preprocessed; fileEncoding = 4; name = TwPrecomp.h; path = ../src/AntTweakBar/TwPrecomp.h; sourceTree = SOURCE_ROOT; };
 		003ADB741038973700ACF6F2 /* TwMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TwMgr.h; path = ../src/AntTweakBar/TwMgr.h; sourceTree = SOURCE_ROOT; };
 		003ADB891038974A00ACF6F2 /* TwMgr.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = TwMgr.cpp; path = ../src/AntTweakBar/TwMgr.cpp; sourceTree = SOURCE_ROOT; };
 		003ADB8A1038974A00ACF6F2 /* TwPrecomp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = TwPrecomp.cpp; path = ../src/AntTweakBar/TwPrecomp.cpp; sourceTree = SOURCE_ROOT; };
-		003ADB8B1038974A00ACF6F2 /* LoadOGL.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = LoadOGL.cpp; path = ../src/AntTweakBar/LoadOGL.cpp; sourceTree = SOURCE_ROOT; };
 		003ADB8C1038974A00ACF6F2 /* TwFonts.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = TwFonts.cpp; path = ../src/AntTweakBar/TwFonts.cpp; sourceTree = SOURCE_ROOT; };
 		003ADB8D1038974A00ACF6F2 /* TwColors.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = TwColors.cpp; path = ../src/AntTweakBar/TwColors.cpp; sourceTree = SOURCE_ROOT; };
-		003ADB8E1038974A00ACF6F2 /* TwOpenGL.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = TwOpenGL.cpp; path = ../src/AntTweakBar/TwOpenGL.cpp; sourceTree = SOURCE_ROOT; };
 		003ADB8F1038974A00ACF6F2 /* TwBar.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = TwBar.cpp; path = ../src/AntTweakBar/TwBar.cpp; sourceTree = SOURCE_ROOT; };
 		003ADB9E1038996800ACF6F2 /* AntTweakBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AntTweakBar.h; path = ../src/AntTweakBar/AntTweakBar.h; sourceTree = SOURCE_ROOT; };
 		003C0CE615A34D3F00FF29F5 /* AppCocoaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppCocoaView.h; path = app/AppCocoaView.h; sourceTree = "<group>"; };
@@ -1005,8 +989,6 @@
 		00F3BD1C0EBF88AA00382AC1 /* Utilities.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = Utilities.cpp; sourceTree = "<group>"; };
 		00F3BD1F0EBF89B700382AC1 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		00F976ED0F9D182D00F92D65 /* AppImplCocoaScreenSaver.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppImplCocoaScreenSaver.mm; path = app/AppImplCocoaScreenSaver.mm; sourceTree = "<group>"; };
-		00FCDC1B10D434AC006140C7 /* TileRender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TileRender.cpp; path = gl/TileRender.cpp; sourceTree = "<group>"; };
-		00FCDC1F10D4387D006140C7 /* TileRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TileRender.h; path = gl/TileRender.h; sourceTree = "<group>"; };
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -1016,8 +998,6 @@
 		277C2CEF1366632B00178A29 /* MatrixAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatrixAlgo.h; sourceTree = "<group>"; };
 		32DBCF5E0370ADEE00C91783 /* cinder_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cinder_Prefix.pch; sourceTree = "<group>"; };
 		434708D81267EE4300AA7349 /* Blend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Blend.cpp; path = ip/Blend.cpp; sourceTree = "<group>"; };
-		4354C47B1357BBED00120EE3 /* TextureFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureFont.h; path = gl/TextureFont.h; sourceTree = "<group>"; };
-		4354C47F1357BC1100120EE3 /* TextureFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TextureFont.cpp; path = gl/TextureFont.cpp; sourceTree = "<group>"; };
 		43C4323F1450A8DA0095B260 /* CinderMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CinderMath.cpp; sourceTree = "<group>"; };
 		43D8B2EF11B0C87800B61EB6 /* TouchEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TouchEvent.h; path = app/TouchEvent.h; sourceTree = "<group>"; };
 		43ED0FDD12209488003AEB0B /* UrlImplCocoa.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UrlImplCocoa.mm; sourceTree = "<group>"; };
@@ -1025,6 +1005,14 @@
 		43F78EF11516DAB700EB63B5 /* Json.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Json.cpp; sourceTree = "<group>"; };
 		43F78EF51516DAE200EB63B5 /* Json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Json.h; sourceTree = "<group>"; };
 		5391FD670E957646002A13D5 /* KeyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyEvent.h; path = app/KeyEvent.h; sourceTree = "<group>"; };
+		BFF75942186D199900D271D7 /* LoadOGLCore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LoadOGLCore.cpp; path = ../src/AntTweakBar/LoadOGLCore.cpp; sourceTree = "<group>"; };
+		BFF75944186D199E00D271D7 /* LoadOGLCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadOGLCore.h; path = ../src/AntTweakBar/LoadOGLCore.h; sourceTree = "<group>"; };
+		BFF75946186D19A700D271D7 /* TwOpenGLCore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TwOpenGLCore.cpp; path = ../src/AntTweakBar/TwOpenGLCore.cpp; sourceTree = "<group>"; };
+		BFF75948186D19AB00D271D7 /* TwOpenGLCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TwOpenGLCore.h; path = ../src/AntTweakBar/TwOpenGLCore.h; sourceTree = "<group>"; };
+		BFF7594A186E63AC00D271D7 /* TwOpenGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TwOpenGL.h; path = ../src/AntTweakBar/TwOpenGL.h; sourceTree = "<group>"; };
+		BFF7594C186E63BA00D271D7 /* TwOpenGL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TwOpenGL.cpp; path = ../src/AntTweakBar/TwOpenGL.cpp; sourceTree = "<group>"; };
+		BFF7594E186E63CB00D271D7 /* LoadOGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadOGL.h; path = ../src/AntTweakBar/LoadOGL.h; sourceTree = "<group>"; };
+		BFF75950186E63D500D271D7 /* LoadOGL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LoadOGL.cpp; path = ../src/AntTweakBar/LoadOGL.cpp; sourceTree = "<group>"; };
 		C70E19FE106AA38700E63577 /* Buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Buffer.h; sourceTree = "<group>"; };
 		C70E1A01106AA39D00E63577 /* Buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Buffer.cpp; sourceTree = "<group>"; };
 		C7792FAE119A185000521786 /* CocoaCaConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CocoaCaConverter.cpp; sourceTree = "<group>"; };
@@ -1212,13 +1200,15 @@
 		003ADB671038971C00ACF6F2 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				BFF7594E186E63CB00D271D7 /* LoadOGL.h */,
+				BFF7594A186E63AC00D271D7 /* TwOpenGL.h */,
+				BFF75948186D19AB00D271D7 /* TwOpenGLCore.h */,
+				BFF75944186D199E00D271D7 /* LoadOGLCore.h */,
 				003ADB9E1038996800ACF6F2 /* AntTweakBar.h */,
 				003ADB6B1038973700ACF6F2 /* TwBar.h */,
 				003ADB6C1038973700ACF6F2 /* AntPerfTimer.h */,
 				003ADB6D1038973700ACF6F2 /* TwGraph.h */,
 				003ADB6E1038973700ACF6F2 /* TwFonts.h */,
-				003ADB6F1038973700ACF6F2 /* TwOpenGL.h */,
-				003ADB701038973700ACF6F2 /* LoadOGL.h */,
 				003ADB711038973700ACF6F2 /* TwColors.h */,
 				003ADB721038973700ACF6F2 /* resource.h */,
 				003ADB731038973700ACF6F2 /* TwPrecomp.h */,
@@ -1230,12 +1220,14 @@
 		003ADB681038972200ACF6F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				BFF75950186E63D500D271D7 /* LoadOGL.cpp */,
+				BFF7594C186E63BA00D271D7 /* TwOpenGL.cpp */,
+				BFF75946186D19A700D271D7 /* TwOpenGLCore.cpp */,
+				BFF75942186D199900D271D7 /* LoadOGLCore.cpp */,
 				003ADB891038974A00ACF6F2 /* TwMgr.cpp */,
 				003ADB8A1038974A00ACF6F2 /* TwPrecomp.cpp */,
-				003ADB8B1038974A00ACF6F2 /* LoadOGL.cpp */,
 				003ADB8C1038974A00ACF6F2 /* TwFonts.cpp */,
 				003ADB8D1038974A00ACF6F2 /* TwColors.cpp */,
-				003ADB8E1038974A00ACF6F2 /* TwOpenGL.cpp */,
 				003ADB8F1038974A00ACF6F2 /* TwBar.cpp */,
 			);
 			name = src;
@@ -1538,12 +1530,9 @@
 				00D9A07D0EA57C5100FF5AEB /* GlslProg.h */,
 				00C14F9A0ED51A3B00549EF3 /* Fbo.h */,
 				008ACC5A0FACCB1600CAAF4D /* Vbo.h */,
-				4354C47B1357BBED00120EE3 /* TextureFont.h */,
 				00C151E40ED9C02F00549EF3 /* DisplayList.h */,
 				00C1500E0ED670DC00549EF3 /* Material.h */,
 				00C1503E0ED8C5E600549EF3 /* Light.h */,
-				00FCDC1F10D4387D006140C7 /* TileRender.h */,
-				002CFA5F1644BBF400C1A31D /* StereoAutoFocuser.h */,
 			);
 			name = gl;
 			sourceTree = "<group>";
@@ -1557,11 +1546,8 @@
 				00CE73970E92DBF80059E09B /* gl.cpp */,
 				00C14F980ED51A2700549EF3 /* Fbo.cpp */,
 				008ACC5E0FACCB2200CAAF4D /* Vbo.cpp */,
-				4354C47F1357BC1100120EE3 /* TextureFont.cpp */,
 				00C150100ED6710500549EF3 /* Material.cpp */,
 				00C151DD0ED9BDF500549EF3 /* DisplayList.cpp */,
-				00FCDC1B10D434AC006140C7 /* TileRender.cpp */,
-				002CFA611644BC0800C1A31D /* StereoAutoFocuser.cpp */,
 			);
 			name = gl;
 			sourceTree = "<group>";
@@ -1755,7 +1741,6 @@
 				007050371114F93F003FCAE4 /* ImageSourceFileQuartz.h in Headers */,
 				007050381114F93F003FCAE4 /* DataTarget.h in Headers */,
 				007050391114F93F003FCAE4 /* ImageTargetFileQuartz.h in Headers */,
-				0070503A1114F93F003FCAE4 /* TileRender.h in Headers */,
 				0070503B1114F93F003FCAE4 /* ImageIo.h in Headers */,
 				0070503C1114F93F003FCAE4 /* Shape2d.h in Headers */,
 				0070503D1114F93F003FCAE4 /* EdgeDetect.h in Headers */,
@@ -1798,7 +1783,6 @@
 				00A1141F1355369A00081873 /* sweep.h in Headers */,
 				00A114211355369A00081873 /* tess.h in Headers */,
 				00A114221355369A00081873 /* tesselator.h in Headers */,
-				4354C47D1357BBF200120EE3 /* TextureFont.h in Headers */,
 				00A1153A1357F42400081873 /* Easing.h in Headers */,
 				00A121E01362774F00081873 /* Timeline.h in Headers */,
 				00A121E11362774F00081873 /* TimelineItem.h in Headers */,
@@ -1886,7 +1870,6 @@
 				00CFD98D1135C3520091E310 /* ImageSourceFileQuartz.h in Headers */,
 				00CFD98E1135C3520091E310 /* DataTarget.h in Headers */,
 				00CFD98F1135C3520091E310 /* ImageTargetFileQuartz.h in Headers */,
-				00CFD9901135C3520091E310 /* TileRender.h in Headers */,
 				00CFD9911135C3520091E310 /* ImageIo.h in Headers */,
 				00CFD9921135C3520091E310 /* Shape2d.h in Headers */,
 				00CFD9931135C3520091E310 /* EdgeDetect.h in Headers */,
@@ -1928,7 +1911,6 @@
 				00A1142E1355369A00081873 /* sweep.h in Headers */,
 				00A114301355369A00081873 /* tess.h in Headers */,
 				00A114311355369A00081873 /* tesselator.h in Headers */,
-				4354C47E1357BBF300120EE3 /* TextureFont.h in Headers */,
 				00A1153B1357F42400081873 /* Easing.h in Headers */,
 				00A121DD1362774F00081873 /* Timeline.h in Headers */,
 				00A121DE1362774F00081873 /* TimelineItem.h in Headers */,
@@ -1957,6 +1939,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				002419D00E8035D3004D34EB /* App.h in Headers */,
+				BFF75949186D19AB00D271D7 /* TwOpenGLCore.h in Headers */,
 				002419D10E8035D3004D34EB /* AppImplCocoaBasic.h in Headers */,
 				002419FB0E8036A7004D34EB /* AppImplCocoaRendererGl.h in Headers */,
 				00241A0D0E80375A004D34EB /* Cinder.h in Headers */,
@@ -2015,9 +1998,8 @@
 				003ADB801038973700ACF6F2 /* AntPerfTimer.h in Headers */,
 				003ADB811038973700ACF6F2 /* TwGraph.h in Headers */,
 				003ADB821038973700ACF6F2 /* TwFonts.h in Headers */,
-				003ADB831038973700ACF6F2 /* TwOpenGL.h in Headers */,
-				003ADB841038973700ACF6F2 /* LoadOGL.h in Headers */,
 				003ADB851038973700ACF6F2 /* TwColors.h in Headers */,
+				BFF7594F186E63CB00D271D7 /* LoadOGL.h in Headers */,
 				003ADB861038973700ACF6F2 /* resource.h in Headers */,
 				003ADB871038973700ACF6F2 /* TwPrecomp.h in Headers */,
 				003ADB881038973700ACF6F2 /* TwMgr.h in Headers */,
@@ -2029,7 +2011,6 @@
 				009FD55510C9DB0600D63B1B /* ImageSourceFileQuartz.h in Headers */,
 				00BC898D10D2BEA200D6DC59 /* DataTarget.h in Headers */,
 				00BC89F210D2EA2200D6DC59 /* ImageTargetFileQuartz.h in Headers */,
-				00FCDC2010D4387D006140C7 /* TileRender.h in Headers */,
 				009C864A10F3D5CB006B6861 /* ImageIo.h in Headers */,
 				00B1337710FBBB8900AC7369 /* Shape2d.h in Headers */,
 				00419C8011057CDB007EC9AD /* EdgeDetect.h in Headers */,
@@ -2069,6 +2050,7 @@
 				003FAAA31290CCB1002D6860 /* Clipboard.h in Headers */,
 				003FABA71290ED38002D6860 /* AppNative.h in Headers */,
 				003133A4129EB85D009DC098 /* Blend.h in Headers */,
+				BFF7594B186E63AC00D271D7 /* TwOpenGL.h in Headers */,
 				00A113D91355363B00081873 /* Triangulate.h in Headers */,
 				00A114061355369A00081873 /* bucketalloc.h in Headers */,
 				00A114081355369A00081873 /* dict.h in Headers */,
@@ -2078,13 +2060,13 @@
 				00A114101355369A00081873 /* sweep.h in Headers */,
 				00A114121355369A00081873 /* tess.h in Headers */,
 				00A114131355369A00081873 /* tesselator.h in Headers */,
-				4354C47C1357BBED00120EE3 /* TextureFont.h in Headers */,
 				00A115391357F42400081873 /* Easing.h in Headers */,
 				00A121E31362774F00081873 /* Timeline.h in Headers */,
 				00A121E41362774F00081873 /* TimelineItem.h in Headers */,
 				00A121E51362774F00081873 /* Tween.h in Headers */,
 				277C2CF01366632B00178A29 /* Matrix22.h in Headers */,
 				277C2CF11366632B00178A29 /* Matrix33.h in Headers */,
+				BFF75945186D199E00D271D7 /* LoadOGLCore.h in Headers */,
 				277C2CF21366632B00178A29 /* Matrix44.h in Headers */,
 				277C2CF31366632B00178A29 /* MatrixAlgo.h in Headers */,
 				005C0CE914CBB3DB00A12CD2 /* Base64.h in Headers */,
@@ -2103,7 +2085,6 @@
 				007A7B17158D09A600BEAD18 /* Window.h in Headers */,
 				003C0CE715A34D3F00FF29F5 /* AppCocoaView.h in Headers */,
 				0053819A15A8CDF90019BA91 /* Event.h in Headers */,
-				002CFA601644BBF400C1A31D /* StereoAutoFocuser.h in Headers */,
 				00782614171CD91400B47F9C /* ConvexHull.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2238,7 +2219,6 @@
 				00CFDA511135CB010091E310 /* gl.cpp in Sources */,
 				00CFDB651135EBC30091E310 /* Texture.cpp in Sources */,
 				00CFDD5E113636AE0091E310 /* Light.cpp in Sources */,
-				00CFDD60113636BD0091E310 /* TileRender.cpp in Sources */,
 				00CFDD8811363AF50091E310 /* App.cpp in Sources */,
 				000F468F114FE1CE00421982 /* Renderer.cpp in Sources */,
 				0005630B11513B9400ECFD91 /* AppImplCocoaTouchRendererQuartz.mm in Sources */,
@@ -2275,7 +2255,6 @@
 				00A1141C1355369A00081873 /* priorityq.c in Sources */,
 				00A1141E1355369A00081873 /* sweep.c in Sources */,
 				00A114201355369A00081873 /* tess.c in Sources */,
-				4354C4811357BC1100120EE3 /* TextureFont.cpp in Sources */,
 				43C432411450A8DA0095B260 /* CinderMath.cpp in Sources */,
 				00A121EC1362778200081873 /* Timeline.cpp in Sources */,
 				00A121ED1362778200081873 /* TimelineItem.cpp in Sources */,
@@ -2345,7 +2324,6 @@
 				00CFDA521135CB020091E310 /* gl.cpp in Sources */,
 				00CFDB661135EBC40091E310 /* Texture.cpp in Sources */,
 				00CFDD5F113636AE0091E310 /* Light.cpp in Sources */,
-				00CFDD61113636BD0091E310 /* TileRender.cpp in Sources */,
 				00CFDD8911363AF60091E310 /* App.cpp in Sources */,
 				000F4690114FE1CF00421982 /* Renderer.cpp in Sources */,
 				0005630C11513B9400ECFD91 /* AppImplCocoaTouchRendererQuartz.mm in Sources */,
@@ -2380,7 +2358,6 @@
 				00A1142B1355369A00081873 /* priorityq.c in Sources */,
 				00A1142D1355369A00081873 /* sweep.c in Sources */,
 				00A1142F1355369A00081873 /* tess.c in Sources */,
-				4354C4821357BC1100120EE3 /* TextureFont.cpp in Sources */,
 				43C432421450A8DA0095B260 /* CinderMath.cpp in Sources */,
 				00A121E91362778200081873 /* Timeline.cpp in Sources */,
 				00A121EA1362778200081873 /* TimelineItem.cpp in Sources */,
@@ -2449,6 +2426,7 @@
 				008ACC5F0FACCB2200CAAF4D /* Vbo.cpp in Sources */,
 				0071BD090FB9FA2C0092E7D6 /* Display.cpp in Sources */,
 				001F520A0FCF99A10021731E /* Path2d.cpp in Sources */,
+				BFF75951186E63D500D271D7 /* LoadOGL.cpp in Sources */,
 				00C071B00FF16244004801EA /* Font.cpp in Sources */,
 				000529200FFBF4C200F19492 /* Text.cpp in Sources */,
 				0049C1B71010E5B10015B4B9 /* Renderer.cpp in Sources */,
@@ -2456,10 +2434,8 @@
 				003ADB65103884C800ACF6F2 /* Params.cpp in Sources */,
 				003ADB971038974A00ACF6F2 /* TwMgr.cpp in Sources */,
 				003ADB981038974A00ACF6F2 /* TwPrecomp.cpp in Sources */,
-				003ADB991038974A00ACF6F2 /* LoadOGL.cpp in Sources */,
 				003ADB9A1038974A00ACF6F2 /* TwFonts.cpp in Sources */,
 				003ADB9B1038974A00ACF6F2 /* TwColors.cpp in Sources */,
-				003ADB9C1038974A00ACF6F2 /* TwOpenGL.cpp in Sources */,
 				003ADB9D1038974A00ACF6F2 /* TwBar.cpp in Sources */,
 				002F8F76103AFEBF0077CB91 /* System.cpp in Sources */,
 				C70E1A03106AA39D00E63577 /* Buffer.cpp in Sources */,
@@ -2469,7 +2445,6 @@
 				009FD55710CAB8B700D63B1B /* ImageSourceFileQuartz.cpp in Sources */,
 				00BC898B10D2BE9400D6DC59 /* DataTarget.cpp in Sources */,
 				00BC8A0910D2EE2000D6DC59 /* ImageTargetFileQuartz.cpp in Sources */,
-				00FCDC1C10D434AC006140C7 /* TileRender.cpp in Sources */,
 				00B1337910FBBBCC00AC7369 /* Shape2d.cpp in Sources */,
 				00419C6E11057CC6007EC9AD /* EdgeDetect.cpp in Sources */,
 				00419C6F11057CC6007EC9AD /* Fill.cpp in Sources */,
@@ -2480,8 +2455,10 @@
 				00419C7411057CC6007EC9AD /* Resize.cpp in Sources */,
 				00419C7511057CC6007EC9AD /* Threshold.cpp in Sources */,
 				00419C7611057CC6007EC9AD /* Trim.cpp in Sources */,
+				BFF75947186D19A700D271D7 /* TwOpenGLCore.cpp in Sources */,
 				001E3561115D5EFA000C228C /* Xml.cpp in Sources */,
 				00B729E3115DABD800CD71B9 /* Timer.cpp in Sources */,
+				BFF75943186D199900D271D7 /* LoadOGLCore.cpp in Sources */,
 				0049A349116EE655007DDFB0 /* AxisAlignedBox.cpp in Sources */,
 				C7A76E9F1176449F00A46655 /* Io.cpp in Sources */,
 				C7A76EA01176449F00A46655 /* Output.cpp in Sources */,
@@ -2490,6 +2467,7 @@
 				C7FA5FC212124A8F0065683B /* CaptureImplQtKit.mm in Sources */,
 				43ED0FDF12209488003AEB0B /* UrlImplCocoa.mm in Sources */,
 				0012529312344FAA00080A0D /* Ray.cpp in Sources */,
+				BFF7594D186E63BA00D271D7 /* TwOpenGL.cpp in Sources */,
 				C7FB1B95124BE2DF0045AFD2 /* FftProcessor.cpp in Sources */,
 				C7FB1B96124BE2DF0045AFD2 /* FftProcessorImplAccelerate.cpp in Sources */,
 				C7FB1B97124BE2DF0045AFD2 /* Input.cpp in Sources */,
@@ -2506,7 +2484,6 @@
 				00A1140D1355369A00081873 /* priorityq.c in Sources */,
 				00A1140F1355369A00081873 /* sweep.c in Sources */,
 				00A114111355369A00081873 /* tess.c in Sources */,
-				4354C4801357BC1100120EE3 /* TextureFont.cpp in Sources */,
 				43C432401450A8DA0095B260 /* CinderMath.cpp in Sources */,
 				00A121EF1362778200081873 /* Timeline.cpp in Sources */,
 				00A121F01362778200081873 /* TimelineItem.cpp in Sources */,
@@ -2525,7 +2502,6 @@
 				005B0307152CD16E00F2C237 /* json_writer.cpp in Sources */,
 				007A7B13158D098D00BEAD18 /* Window.cpp in Sources */,
 				00BBBDF915A34F49006B9BBE /* AppCocoaView.mm in Sources */,
-				002CFA621644BC0800C1A31D /* StereoAutoFocuser.cpp in Sources */,
 				00954491167D2A3E008ECA02 /* MovieWriter.cpp in Sources */,
 				00954492167D2A3E008ECA02 /* QuickTime.cpp in Sources */,
 				00954493167D2A3E008ECA02 /* QuickTimeUtils.cpp in Sources */,
@@ -2671,8 +2647,12 @@
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				INSTALL_PATH = /usr/local/lib;
 				LINK_WITH_STANDARD_LIBRARIES = NO;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"-x",
+					"objective-c++",
+				);
 				OTHER_LDFLAGS = (
 					../lib/macosx/libboost_filesystem.a,
 					../lib/macosx/libz.a,
@@ -2680,7 +2660,7 @@
 					../lib/macosx/libboost_date_time.a,
 				);
 				PRODUCT_NAME = cinder_d;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.9;
 				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Debug;
@@ -2703,9 +2683,12 @@
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				INSTALL_PATH = /usr/local/lib;
 				LINK_WITH_STANDARD_LIBRARIES = NO;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = "";
+				OTHER_CFLAGS = (
+					"-x",
+					"objective-c++",
+				);
 				OTHER_LDFLAGS = (
 					../lib/macosx/libboost_filesystem.a,
 					../lib/macosx/libz.a,
@@ -2713,7 +2696,7 @@
 					../lib/macosx/libboost_date_time.a,
 				);
 				PRODUCT_NAME = cinder;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.9;
 				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Release;

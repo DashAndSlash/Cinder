@@ -35,7 +35,7 @@ GLint Fbo::sMaxAttachments = -1;
 #if defined( CINDER_GLES )
 	#define GL_SUFFIX(sym) sym##OES
 #else
-	#define GL_SUFFIX(sym) sym##EXT
+	#define GL_SUFFIX(sym) sym
 #endif
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -65,19 +65,19 @@ Renderbuffer::Obj::Obj( int aWidth, int aHeight, GLenum internalFormat, int msaa
 	if( ! csaaSupported )
 		mCoverageSamples = 0;
 
-	GL_SUFFIX(glBindRenderbuffer)( GL_SUFFIX(GL_RENDERBUFFER_), mId );
+	GL_SUFFIX(glBindRenderbuffer)( GL_SUFFIX(GL_RENDERBUFFER), mId );
 
 #if ! defined( CINDER_GLES )
   #if defined( CINDER_MSW )
 	if( mCoverageSamples ) // create a CSAA buffer
-		glRenderbufferStorageMultisampleCoverageNV( GL_RENDERBUFFER_EXT, mCoverageSamples, mSamples, mInternalFormat, mWidth, mHeight );
+		glRenderbufferStorageMultisampleCoverageNV( GL_RENDERBUFFER, mCoverageSamples, mSamples, mInternalFormat, mWidth, mHeight );
 	else
   #endif
 	if( mSamples ) // create a regular MSAA buffer
-		glRenderbufferStorageMultisampleEXT( GL_RENDERBUFFER_EXT, mSamples, mInternalFormat, mWidth, mHeight );
+		glRenderbufferStorageMultisample( GL_RENDERBUFFER, mSamples, mInternalFormat, mWidth, mHeight );
 	else
 #endif
-		GL_SUFFIX(glRenderbufferStorage)( GL_SUFFIX(GL_RENDERBUFFER_), mInternalFormat, mWidth, mHeight );
+		GL_SUFFIX(glRenderbufferStorage)( GL_SUFFIX(GL_RENDERBUFFER), mInternalFormat, mWidth, mHeight );
 }
 
 Renderbuffer::Obj::~Obj()
@@ -187,7 +187,7 @@ void Fbo::init()
 
 	// allocate the framebuffer itself
 	GL_SUFFIX(glGenFramebuffers)( 1, &mObj->mId );
-	GL_SUFFIX(glBindFramebuffer)( GL_SUFFIX(GL_FRAMEBUFFER_), mObj->mId );	
+	GL_SUFFIX(glBindFramebuffer)( GL_SUFFIX(GL_FRAMEBUFFER), mObj->mId );
 
 	Texture::Format textureFormat;
 	textureFormat.setTarget( getTarget() );
@@ -213,8 +213,8 @@ void Fbo::init()
 		// attach all the textures to the framebuffer
 		vector<GLenum> drawBuffers;
 		for( size_t c = 0; c < mObj->mColorTextures.size(); ++c ) {
-			GL_SUFFIX(glFramebufferTexture2D)( GL_SUFFIX(GL_FRAMEBUFFER_), GL_SUFFIX(GL_COLOR_ATTACHMENT0_) + c, getTarget(), mObj->mColorTextures[c].getId(), 0 );
-			drawBuffers.push_back( GL_SUFFIX(GL_COLOR_ATTACHMENT0_) + c );
+			GL_SUFFIX(glFramebufferTexture2D)( GL_SUFFIX(GL_FRAMEBUFFER), GL_SUFFIX(GL_COLOR_ATTACHMENT0) + c, getTarget(), mObj->mColorTextures[c].getId(), 0 );
+			drawBuffers.push_back( GL_SUFFIX(GL_COLOR_ATTACHMENT0) + c );
 		}
 #if ! defined( CINDER_GLES )
 		if( ! drawBuffers.empty() )
@@ -233,18 +233,18 @@ void Fbo::init()
 				glTexParameteri( getTarget(), GL_TEXTURE_MAG_FILTER, mObj->mFormat.mMagFilter );
 				glTexParameteri( getTarget(), GL_TEXTURE_WRAP_S, mObj->mFormat.mWrapS );
 				glTexParameteri( getTarget(), GL_TEXTURE_WRAP_T, mObj->mFormat.mWrapT );
-				glTexParameteri( getTarget(), GL_DEPTH_TEXTURE_MODE, GL_LUMINANCE );
+//				glTexParameteri( getTarget(), GL_DEPTH_TEXTURE_MODE, GL_R8 );
 				mObj->mDepthTexture = Texture( getTarget(), depthTextureId, mObj->mWidth, mObj->mHeight, true );
 
-				glFramebufferTexture2DEXT( GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, getTarget(), mObj->mDepthTexture.getId(), 0 );
-//glFramebufferTexture2DEXT( GL_FRAMEBUFFER_EXT, GL_STENCIL_ATTACHMENT_EXT, getTarget(), mObj->mDepthTexture.getId(), 0 );
+				glFramebufferTexture2D( GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, getTarget(), mObj->mDepthTexture.getId(), 0 );
+//glFramebufferTexture2D( GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, getTarget(), mObj->mDepthTexture.getId(), 0 );
 	#else
 		throw; // this should never fire in OpenGL ES
 	#endif
 			}
 			else if( mObj->mFormat.mDepthBuffer ) { // implement depth buffer as RenderBuffer
 				mObj->mDepthRenderbuffer = Renderbuffer( mObj->mWidth, mObj->mHeight, mObj->mFormat.getDepthInternalFormat() );
-				GL_SUFFIX(glFramebufferRenderbuffer)( GL_SUFFIX(GL_FRAMEBUFFER_), GL_SUFFIX(GL_DEPTH_ATTACHMENT_), GL_SUFFIX(GL_RENDERBUFFER_), mObj->mDepthRenderbuffer.getId() );
+				GL_SUFFIX(glFramebufferRenderbuffer)( GL_SUFFIX(GL_FRAMEBUFFER), GL_SUFFIX(GL_DEPTH_ATTACHMENT), GL_SUFFIX(GL_RENDERBUFFER), mObj->mDepthRenderbuffer.getId() );
 			}
 		}
 
@@ -263,14 +263,14 @@ bool Fbo::initMultisample( bool csaa )
 #if defined( CINDER_GLES )
 	return false;
 #else
-	glGenFramebuffersEXT( 1, &mObj->mResolveFramebufferId );
-	glBindFramebufferEXT( GL_FRAMEBUFFER_EXT, mObj->mResolveFramebufferId ); 
+	glGenFramebuffers( 1, &mObj->mResolveFramebufferId );
+	glBindFramebuffer( GL_FRAMEBUFFER, mObj->mResolveFramebufferId );
 	
 	// bind all of the color buffers to the resolve FB's attachment points
 	vector<GLenum> drawBuffers;
 	for( size_t c = 0; c < mObj->mColorTextures.size(); ++c ) {
-		glFramebufferTexture2DEXT( GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT + c, getTarget(), mObj->mColorTextures[c].getId(), 0 );
-		drawBuffers.push_back( GL_COLOR_ATTACHMENT0_EXT + c );
+		glFramebufferTexture2D( GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + c, getTarget(), mObj->mColorTextures[c].getId(), 0 );
+		drawBuffers.push_back( GL_COLOR_ATTACHMENT0 + c );
 	}
 
 	if( ! drawBuffers.empty() )
@@ -281,7 +281,7 @@ bool Fbo::initMultisample( bool csaa )
 	if( ! checkStatus( &ignoredException ) )
 		return false;
 
-	glBindFramebufferEXT( GL_FRAMEBUFFER_EXT, mObj->mId );
+	glBindFramebuffer( GL_FRAMEBUFFER, mObj->mId );
 
 	if( mObj->mFormat.mSamples > getMaxSamples() ) {
 		mObj->mFormat.mSamples = getMaxSamples();
@@ -292,7 +292,7 @@ bool Fbo::initMultisample( bool csaa )
 		mObj->mMultisampleColorRenderbuffers.push_back( Renderbuffer( mObj->mWidth, mObj->mHeight, mObj->mFormat.mColorInternalFormat, mObj->mFormat.mSamples, mObj->mFormat.mCoverageSamples ) );
 
 		// attach the multisampled color buffer
-		glFramebufferRenderbufferEXT( GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT + c, GL_RENDERBUFFER_EXT, mObj->mMultisampleColorRenderbuffers.back().getId() );
+		glFramebufferRenderbuffer( GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + c, GL_RENDERBUFFER, mObj->mMultisampleColorRenderbuffers.back().getId() );
 	}
 	
 	if( ! drawBuffers.empty() )
@@ -303,7 +303,7 @@ bool Fbo::initMultisample( bool csaa )
 		mObj->mMultisampleDepthRenderbuffer = Renderbuffer( mObj->mWidth, mObj->mHeight, mObj->mFormat.mDepthInternalFormat, mObj->mFormat.mSamples, mObj->mFormat.mCoverageSamples );
 
 		// attach the depth Renderbuffer
-		glFramebufferRenderbufferEXT( GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, mObj->mMultisampleDepthRenderbuffer.getId() );
+		glFramebufferRenderbuffer( GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mObj->mMultisampleDepthRenderbuffer.getId() );
 	}
 
 	// see if the primary framebuffer turned out ok
@@ -371,23 +371,23 @@ void Fbo::resolveTextures() const
 	if ( mObj->mResolveFramebufferId ) {
 		SaveFramebufferBinding saveFboBinding;
 
-		glBindFramebufferEXT( GL_READ_FRAMEBUFFER_EXT, mObj->mId );
-		glBindFramebufferEXT( GL_DRAW_FRAMEBUFFER_EXT, mObj->mResolveFramebufferId );
+		glBindFramebuffer( GL_READ_FRAMEBUFFER, mObj->mId );
+		glBindFramebuffer( GL_DRAW_FRAMEBUFFER, mObj->mResolveFramebufferId );
 		
 		for( size_t c = 0; c < mObj->mColorTextures.size(); ++c ) {
-			glDrawBuffer( GL_COLOR_ATTACHMENT0_EXT + c );
-			glReadBuffer( GL_COLOR_ATTACHMENT0_EXT + c );
+			glDrawBuffer( GL_COLOR_ATTACHMENT0 + c );
+			glReadBuffer( GL_COLOR_ATTACHMENT0 + c );
 			GLbitfield bitfield = GL_COLOR_BUFFER_BIT;
 			if( mObj->mDepthTexture )
 				bitfield |= GL_DEPTH_BUFFER_BIT;
-			glBlitFramebufferEXT( 0, 0, mObj->mWidth, mObj->mHeight, 0, 0, mObj->mWidth, mObj->mHeight, bitfield, GL_NEAREST );
+			glBlitFramebuffer( 0, 0, mObj->mWidth, mObj->mHeight, 0, 0, mObj->mWidth, mObj->mHeight, bitfield, GL_NEAREST );
 		}
 
 		// restore the draw buffers to the default for the antialiased (non-resolve) framebuffer
 		vector<GLenum> drawBuffers;
 		for( size_t c = 0; c < mObj->mColorTextures.size(); ++c )
-			drawBuffers.push_back( GL_COLOR_ATTACHMENT0_EXT + c );
-		glBindFramebufferEXT( GL_FRAMEBUFFER_EXT, mObj->mId );
+			drawBuffers.push_back( GL_COLOR_ATTACHMENT0 + c );
+		glBindFramebuffer( GL_FRAMEBUFFER, mObj->mId );
 		glDrawBuffers( drawBuffers.size(), &drawBuffers[0] );
 	}
 #endif
@@ -414,7 +414,7 @@ void Fbo::updateMipmaps( bool bindFirst, int attachment ) const
 
 void Fbo::bindFramebuffer()
 {
-	GL_SUFFIX(glBindFramebuffer)( GL_SUFFIX(GL_FRAMEBUFFER_), mObj->mId );
+	GL_SUFFIX(glBindFramebuffer)( GL_SUFFIX(GL_FRAMEBUFFER), mObj->mId );
 	if( mObj->mResolveFramebufferId ) {
 		mObj->mNeedsResolve = true;
 	}
@@ -425,36 +425,36 @@ void Fbo::bindFramebuffer()
 
 void Fbo::unbindFramebuffer()
 {
-	GL_SUFFIX(glBindFramebuffer)( GL_SUFFIX(GL_FRAMEBUFFER_), 0 );
+	GL_SUFFIX(glBindFramebuffer)( GL_SUFFIX(GL_FRAMEBUFFER), 0 );
 }
 
 bool Fbo::checkStatus( FboExceptionInvalidSpecification *resultExc )
 {
 	GLenum status;
-	status = (GLenum) GL_SUFFIX(glCheckFramebufferStatus)( GL_SUFFIX(GL_FRAMEBUFFER_) );
+	status = (GLenum) GL_SUFFIX(glCheckFramebufferStatus)( GL_SUFFIX(GL_FRAMEBUFFER) );
 	switch( status ) {
-		case GL_SUFFIX(GL_FRAMEBUFFER_COMPLETE_):
+		case GL_SUFFIX(GL_FRAMEBUFFER_COMPLETE):
 		break;
-		case GL_SUFFIX(GL_FRAMEBUFFER_UNSUPPORTED_):
+		case GL_SUFFIX(GL_FRAMEBUFFER_UNSUPPORTED):
 			*resultExc = FboExceptionInvalidSpecification( "Unsupported framebuffer format" );
 		return false;
-		case GL_SUFFIX(GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_):
+		case GL_SUFFIX(GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT):
 			*resultExc = FboExceptionInvalidSpecification( "Framebuffer incomplete: missing attachment" );
 		return false;
-		case GL_SUFFIX(GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_):
+		case GL_SUFFIX(GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT):
 			*resultExc = FboExceptionInvalidSpecification( "Framebuffer incomplete: duplicate attachment" );
 		return false;
-		case GL_SUFFIX(GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_):
-			*resultExc = FboExceptionInvalidSpecification( "Framebuffer incomplete: attached images must have same dimensions" );
-		return false;
-		case GL_SUFFIX(GL_FRAMEBUFFER_INCOMPLETE_FORMATS_):
-			*resultExc = FboExceptionInvalidSpecification( "Framebuffer incomplete: attached images must have same format" );
-		return false;
+//		case GL_SUFFIX(GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS):
+//			*resultExc = FboExceptionInvalidSpecification( "Framebuffer incomplete: attached images must have same dimensions" );
+//		return false;
+//		case GL_SUFFIX(GL_FRAMEBUFFER_INCOMPLETE_FORMATS):
+//			*resultExc = FboExceptionInvalidSpecification( "Framebuffer incomplete: attached images must have same format" );
+//		return false;
 #if ! defined( CINDER_GLES )
-		case GL_SUFFIX(GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER_):
+		case GL_SUFFIX(GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER):
 			*resultExc = FboExceptionInvalidSpecification( "Framebuffer incomplete: missing draw buffer" );
 		return false;
-		case GL_SUFFIX(GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER_):
+		case GL_SUFFIX(GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER):
 			*resultExc = FboExceptionInvalidSpecification( "Framebuffer incomplete: missing read buffer" );
 		return false;
 #endif
@@ -470,11 +470,11 @@ GLint Fbo::getMaxSamples()
 {
 #if ! defined( CINDER_GLES )
 	if( sMaxSamples < 0 ) {
-		if( ( ! gl::isExtensionAvailable( "GL_EXT_framebuffer_multisample" ) ) || ( ! gl::isExtensionAvailable( "GL_EXT_framebuffer_blit" ) ) ) {
+		if( ( ! gl::isExtensionAvailable( "GL_framebuffer_multisample" ) ) || ( ! gl::isExtensionAvailable( "GL_framebuffer_blit" ) ) ) {
 			sMaxSamples = 0;
 		}
 		else
-			glGetIntegerv( GL_MAX_SAMPLES_EXT, &sMaxSamples);	
+			glGetIntegerv( GL_MAX_SAMPLES, &sMaxSamples);	
 	}
 	
 	return sMaxSamples;
@@ -487,7 +487,7 @@ GLint Fbo::getMaxAttachments()
 {
 #if ! defined( CINDER_GLES )
 	if( sMaxAttachments < 0 ) {
-		glGetIntegerv( GL_MAX_COLOR_ATTACHMENTS_EXT, &sMaxAttachments );
+		glGetIntegerv( GL_MAX_COLOR_ATTACHMENTS, &sMaxAttachments );
 	}
 	
 	return sMaxAttachments;
@@ -501,27 +501,27 @@ void Fbo::blitTo( Fbo dst, const Area &srcArea, const Area &dstArea, GLenum filt
 {
 	SaveFramebufferBinding saveFboBinding;
 
-	glBindFramebufferEXT( GL_READ_FRAMEBUFFER_EXT, mObj->mId );
-	glBindFramebufferEXT( GL_DRAW_FRAMEBUFFER_EXT, dst.getId() );		
-	glBlitFramebufferEXT( srcArea.getX1(), srcArea.getY1(), srcArea.getX2(), srcArea.getY2(), dstArea.getX1(), dstArea.getY1(), dstArea.getX2(), dstArea.getY2(), mask, filter );
+	glBindFramebuffer( GL_READ_FRAMEBUFFER, mObj->mId );
+	glBindFramebuffer( GL_DRAW_FRAMEBUFFER, dst.getId() );		
+	glBlitFramebuffer( srcArea.getX1(), srcArea.getY1(), srcArea.getX2(), srcArea.getY2(), dstArea.getX1(), dstArea.getY1(), dstArea.getX2(), dstArea.getY2(), mask, filter );
 }
 
 void Fbo::blitToScreen( const Area &srcArea, const Area &dstArea, GLenum filter, GLbitfield mask ) const
 {
 	SaveFramebufferBinding saveFboBinding;
 
-	glBindFramebufferEXT( GL_READ_FRAMEBUFFER_EXT, mObj->mId );
-	glBindFramebufferEXT( GL_DRAW_FRAMEBUFFER_EXT, 0 );		
-	glBlitFramebufferEXT( srcArea.getX1(), srcArea.getY1(), srcArea.getX2(), srcArea.getY2(), dstArea.getX1(), dstArea.getY1(), dstArea.getX2(), dstArea.getY2(), mask, filter );
+	glBindFramebuffer( GL_READ_FRAMEBUFFER, mObj->mId );
+	glBindFramebuffer( GL_DRAW_FRAMEBUFFER, 0 );		
+	glBlitFramebuffer( srcArea.getX1(), srcArea.getY1(), srcArea.getX2(), srcArea.getY2(), dstArea.getX1(), dstArea.getY1(), dstArea.getX2(), dstArea.getY2(), mask, filter );
 }
 
 void Fbo::blitFromScreen( const Area &srcArea, const Area &dstArea, GLenum filter, GLbitfield mask )
 {
 	SaveFramebufferBinding saveFboBinding;
 
-	glBindFramebufferEXT( GL_READ_FRAMEBUFFER_EXT, GL_NONE );
-	glBindFramebufferEXT( GL_DRAW_FRAMEBUFFER_EXT, mObj->mId );		
-	glBlitFramebufferEXT( srcArea.getX1(), srcArea.getY1(), srcArea.getX2(), srcArea.getY2(), dstArea.getX1(), dstArea.getY1(), dstArea.getX2(), dstArea.getY2(), mask, filter );
+	glBindFramebuffer( GL_READ_FRAMEBUFFER, GL_NONE );
+	glBindFramebuffer( GL_DRAW_FRAMEBUFFER, mObj->mId );		
+	glBlitFramebuffer( srcArea.getX1(), srcArea.getY1(), srcArea.getX2(), srcArea.getY2(), dstArea.getX1(), dstArea.getY1(), dstArea.getX2(), dstArea.getY2(), mask, filter );
 }
 #endif
 

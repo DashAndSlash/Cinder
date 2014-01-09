@@ -134,7 +134,7 @@ Texture::Texture( const Surface32f &surface, Format format )
 	if( format.mInternalFormat < 0 ) {
 #if ! defined( CINDER_GLES )
 		if( supportsTextureFloat )
-			format.mInternalFormat = surface.hasAlpha() ? GL_RGBA32F_ARB : GL_RGB32F_ARB;
+			format.mInternalFormat = surface.hasAlpha() ? GL_RGBA32F : GL_RGB32F;
 		else
 			format.mInternalFormat = surface.hasAlpha() ? GL_RGBA : GL_RGB;
 #else
@@ -151,7 +151,7 @@ Texture::Texture( const Channel8u &channel, Format format )
 	: mObj( shared_ptr<Obj>( new Obj( channel.getWidth(), channel.getHeight() ) ) )
 {
 	if( format.mInternalFormat < 0 )
-		format.mInternalFormat = GL_LUMINANCE;
+		format.mInternalFormat = GL_R8;
 
 	mObj->mInternalFormat = format.mInternalFormat;
 	mObj->mTarget = format.mTarget;
@@ -170,10 +170,10 @@ Texture::Texture( const Channel8u &channel, Format format )
 			}
 		}
 	
-		init( data.get(), channel.getRowBytes() / channel.getIncrement(), GL_LUMINANCE, GL_UNSIGNED_BYTE, format );
+		init( data.get(), channel.getRowBytes() / channel.getIncrement(), GL_R8, GL_UNSIGNED_BYTE, format );
 	}
 	else
-		init( channel.getData(), channel.getRowBytes() / channel.getIncrement(), GL_LUMINANCE, GL_UNSIGNED_BYTE, format );
+		init( channel.getData(), channel.getRowBytes() / channel.getIncrement(), GL_R8, GL_UNSIGNED_BYTE, format );
 }
 
 Texture::Texture( const Channel32f &channel, Format format )
@@ -188,11 +188,11 @@ Texture::Texture( const Channel32f &channel, Format format )
 	if( format.mInternalFormat < 0 ) {
 #if ! defined( CINDER_GLES )
 		if( supportsTextureFloat )
-			format.mInternalFormat = GL_LUMINANCE32F_ARB;
+			format.mInternalFormat = GL_R32F;
 		else
-			format.mInternalFormat = GL_LUMINANCE;
+			format.mInternalFormat = GL_R8;
 #else
-		format.mInternalFormat = GL_LUMINANCE;
+		format.mInternalFormat = GL_R8;
 #endif	
 	}
 
@@ -213,10 +213,10 @@ Texture::Texture( const Channel32f &channel, Format format )
 			}
 		}
 	
-		init( data.get(), GL_LUMINANCE, format );
+		init( data.get(), GL_R8, format );
 	}
 	else
-		init( channel.getData(), GL_LUMINANCE, format );
+		init( channel.getData(), GL_R8, format );
 }
 
 Texture::Texture( ImageSourceRef imageSource, Format format )
@@ -255,7 +255,8 @@ void Texture::init( const unsigned char *data, int unpackRowLength, GLenum dataF
 	glTexParameteri( mObj->mTarget, GL_TEXTURE_MIN_FILTER, format.mMinFilter );	
 	glTexParameteri( mObj->mTarget, GL_TEXTURE_MAG_FILTER, format.mMagFilter );
 	if( format.mMipmapping )
-		glTexParameteri( mObj->mTarget, GL_GENERATE_MIPMAP, GL_TRUE );
+//		glTexParameteri( mObj->mTarget, GL_GENERATE_MIPMAP, GL_TRUE );
+		glGenerateMipmap(mObj->mTarget);
 	if( mObj->mTarget == GL_TEXTURE_2D ) {
 		mObj->mMaxU = mObj->mMaxV = 1.0f;
 	}
@@ -286,7 +287,8 @@ void Texture::init( const float *data, GLint dataFormat, const Format &format )
 	glTexParameteri( mObj->mTarget, GL_TEXTURE_MIN_FILTER, format.mMinFilter );	
 	glTexParameteri( mObj->mTarget, GL_TEXTURE_MAG_FILTER, format.mMagFilter );
 	if( format.mMipmapping )
-		glTexParameteri( mObj->mTarget, GL_GENERATE_MIPMAP, GL_TRUE );
+//		glTexParameteri( mObj->mTarget, GL_GENERATE_MIPMAP, GL_TRUE );
+		glGenerateMipmap(mObj->mTarget);
 	if( mObj->mTarget == GL_TEXTURE_2D ) {
 		mObj->mMaxU = mObj->mMaxV = 1.0f;
 	}
@@ -300,7 +302,7 @@ void Texture::init( const float *data, GLint dataFormat, const Format &format )
 		glTexImage2D( mObj->mTarget, 0, mObj->mInternalFormat, mObj->mWidth, mObj->mHeight, 0, dataFormat, GL_FLOAT, data );
 	}
 	else
-		glTexImage2D( mObj->mTarget, 0, mObj->mInternalFormat, mObj->mWidth, mObj->mHeight, 0, GL_LUMINANCE, GL_FLOAT, 0 );  // init to black...
+		glTexImage2D( mObj->mTarget, 0, mObj->mInternalFormat, mObj->mWidth, mObj->mHeight, 0, GL_R8, GL_FLOAT, 0 );  // init to black...
 }
 
 void Texture::init( ImageSourceRef imageSource, const Format &format )
@@ -326,26 +328,26 @@ void Texture::init( ImageSourceRef imageSource, const Format &format )
 				else if( imageSource->getDataType() == ImageIo::UINT16 )
 					mObj->mInternalFormat = ( imageSource->hasAlpha() ) ? GL_RGBA16 : GL_RGB16;
 				else if( imageSource->getDataType() == ImageIo::FLOAT32 && supportsTextureFloat )
-					mObj->mInternalFormat = ( imageSource->hasAlpha() ) ? GL_RGBA32F_ARB : GL_RGB32F_ARB;
+					mObj->mInternalFormat = ( imageSource->hasAlpha() ) ? GL_RGBA32F : GL_RGB32F;
 				else
 					mObj->mInternalFormat = ( imageSource->hasAlpha() ) ? GL_RGBA : GL_RGB;
 			break;
 			case ImageIo::CM_GRAY:
 				if( imageSource->getDataType() == ImageIo::UINT8 )
-					mObj->mInternalFormat = ( imageSource->hasAlpha() ) ? GL_LUMINANCE8_ALPHA8 : GL_LUMINANCE8;
+					mObj->mInternalFormat = ( imageSource->hasAlpha() ) ? GL_RG8 : GL_R8;
 				else if( imageSource->getDataType() == ImageIo::UINT16 )
-					mObj->mInternalFormat = ( imageSource->hasAlpha() ) ? GL_LUMINANCE16_ALPHA16 : GL_LUMINANCE16;
+					mObj->mInternalFormat = ( imageSource->hasAlpha() ) ? GL_RG16 : GL_R16;
 				else if( imageSource->getDataType() == ImageIo::FLOAT32 && supportsTextureFloat )
-					mObj->mInternalFormat = ( imageSource->hasAlpha() ) ? GL_LUMINANCE_ALPHA32F_ARB : GL_LUMINANCE32F_ARB;
+					mObj->mInternalFormat = ( imageSource->hasAlpha() ) ? GL_RG32F : GL_R32F;
 				else
-					mObj->mInternalFormat = ( imageSource->hasAlpha() ) ? GL_LUMINANCE_ALPHA : GL_LUMINANCE;
+					mObj->mInternalFormat = ( imageSource->hasAlpha() ) ? GL_RG8 : GL_R8;
 			break;
 #else
 			case ImageIo::CM_RGB:
 				mObj->mInternalFormat = ( imageSource->hasAlpha() ) ? GL_RGBA : GL_RGB;
 			break;
 			case ImageIo::CM_GRAY:
-				mObj->mInternalFormat = ( imageSource->hasAlpha() ) ? GL_LUMINANCE_ALPHA : GL_LUMINANCE;
+				mObj->mInternalFormat = ( imageSource->hasAlpha() ) ? GL_LUMINANCE_ALPHA : GL_R8;
 			break;
 			
 #endif
@@ -368,7 +370,7 @@ void Texture::init( ImageSourceRef imageSource, const Format &format )
 			channelOrder = ( imageSource->hasAlpha() ) ? ImageIo::RGBA : ImageIo::RGB;
 		break;
 		case ImageSource::CM_GRAY:
-			dataFormat = ( imageSource->hasAlpha() ) ? GL_LUMINANCE_ALPHA : GL_LUMINANCE;
+			dataFormat = ( imageSource->hasAlpha() ) ? GL_RG8 : GL_R8;
 			channelOrder = ( imageSource->hasAlpha() ) ? ImageIo::YA : ImageIo::Y;
 			isGray = true;
 		break;
@@ -385,8 +387,62 @@ void Texture::init( ImageSourceRef imageSource, const Format &format )
 	glTexParameteri( mObj->mTarget, GL_TEXTURE_WRAP_T, format.mWrapT );
 	glTexParameteri( mObj->mTarget, GL_TEXTURE_MIN_FILTER, format.mMinFilter );	
 	glTexParameteri( mObj->mTarget, GL_TEXTURE_MAG_FILTER, format.mMagFilter );
+	switch (mObj->mInternalFormat) {
+		case GL_R8:
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_R, GL_RED );
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_G, GL_RED );
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_B, GL_RED );
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_A, GL_ONE );
+		break;
+		
+		case GL_RG8:
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_R, GL_RED );
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_G, GL_RED );
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_B, GL_RED );
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_A, GL_GREEN );
+		break;
+		
+		case GL_ALPHA:
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_R, GL_ONE );
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_G, GL_ONE );
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_B, GL_ONE );
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_A, GL_RED );
+		break;
+		
+		case GL_R16:
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_R, GL_RED );
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_G, GL_RED );
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_B, GL_RED );
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_A, GL_ONE );
+		break;
+		
+		case GL_RG16:
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_R, GL_RED );
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_G, GL_RED );
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_B, GL_RED );
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_A, GL_GREEN );
+		break;
+		
+		case GL_R32F:
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_R, GL_RED );
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_G, GL_RED );
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_B, GL_RED );
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_A, GL_ONE );
+		break;
+		
+		case GL_RG32F:
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_R, GL_RED );
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_G, GL_RED );
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_B, GL_RED );
+		glTexParameteri( mObj->mTarget, GL_TEXTURE_SWIZZLE_A, GL_GREEN );
+		break;
+		
+		default:
+		break;
+	}
 	if( format.mMipmapping )
-		glTexParameteri( mObj->mTarget, GL_GENERATE_MIPMAP, GL_TRUE );
+//		glTexParameteri( mObj->mTarget, GL_GENERATE_MIPMAP, GL_TRUE );
+		glGenerateMipmap(mObj->mTarget);
 	if( mObj->mTarget == GL_TEXTURE_2D ) {
 		mObj->mMaxU = mObj->mMaxV = 1.0f;
 	}
@@ -469,7 +525,7 @@ void Texture::update( const Channel32f &channel )
 		throw TextureDataExc( "Invalid Texture::update() channel dimensions" );
 
 	glBindTexture( mObj->mTarget, mObj->mTextureID );
-	glTexSubImage2D( mObj->mTarget, 0, 0, 0, getWidth(), getHeight(), GL_LUMINANCE, GL_FLOAT, channel.getData() );
+	glTexSubImage2D( mObj->mTarget, 0, 0, 0, getWidth(), getHeight(), GL_R8, GL_FLOAT, channel.getData() );
 }
 
 void Texture::update( const Channel8u &channel, const Area &area )
@@ -489,10 +545,10 @@ void Texture::update( const Channel8u &channel, const Area &area )
 			}
 		}
 	
-		glTexSubImage2D( mObj->mTarget, 0, area.getX1(), area.getY1(), area.getWidth(), area.getHeight(), GL_LUMINANCE, GL_UNSIGNED_BYTE, data.get() );		
+		glTexSubImage2D( mObj->mTarget, 0, area.getX1(), area.getY1(), area.getWidth(), area.getHeight(), GL_R8, GL_UNSIGNED_BYTE, data.get() );		
 	}
 	else
-		glTexSubImage2D( mObj->mTarget, 0, area.getX1(), area.getY1(), area.getWidth(), area.getHeight(), GL_LUMINANCE, GL_UNSIGNED_BYTE, channel.getData( area.getUL() ) );
+		glTexSubImage2D( mObj->mTarget, 0, area.getX1(), area.getY1(), area.getWidth(), area.getHeight(), GL_R8, GL_UNSIGNED_BYTE, channel.getData( area.getUL() ) );
 }
 
 void Texture::SurfaceChannelOrderToDataFormatAndType( const SurfaceChannelOrder &sco, GLint *dataFormat, GLenum *type )
@@ -533,7 +589,7 @@ bool Texture::dataFormatHasAlpha( GLint dataFormat )
 	switch( dataFormat ) {
 		case GL_RGBA:
 		case GL_ALPHA:
-		case GL_LUMINANCE_ALPHA:
+		case GL_RG8:
 #if ! defined( CINDER_GLES )
 		case GL_BGRA:
 #endif
@@ -548,8 +604,8 @@ bool Texture::dataFormatHasColor( GLint dataFormat )
 {
 	switch( dataFormat ) {
 		case GL_ALPHA:
-		case GL_LUMINANCE:
-		case GL_LUMINANCE_ALPHA:
+		case GL_R8:
+		case GL_RG8:
 			return false;
 		break;
 	}
@@ -800,13 +856,13 @@ bool Texture::hasAlpha() const
 #if ! defined( CINDER_GLES )
 		case GL_RGBA8:
 		case GL_RGBA16:
-		case GL_RGBA32F_ARB:
-		case GL_LUMINANCE8_ALPHA8:
-		case GL_LUMINANCE16_ALPHA16:
-		case GL_LUMINANCE_ALPHA32F_ARB:
+		case GL_RGBA32F:
+//		case GL_RG8:
+		case GL_RG16:
+		case GL_RG32F:
 #endif
 		case GL_RGBA:
-		case GL_LUMINANCE_ALPHA:
+		case GL_RG8:
 			return true;
 		break;
 		default:
@@ -1075,21 +1131,21 @@ class ImageSourceTexture : public ImageSource {
 		switch( internalFormat ) {
 			case GL_RGB: setChannelOrder( ImageIo::RGB ); setColorModel( ImageIo::CM_RGB ); setDataType( ImageIo::FLOAT32 ); format = GL_RGB; break;
 			case GL_RGBA: setChannelOrder( ImageIo::RGBA ); setColorModel( ImageIo::CM_RGB ); setDataType( ImageIo::FLOAT32 ); format = GL_RGBA; break;
-			case GL_LUMINANCE: setChannelOrder( ImageIo::Y ); setColorModel( ImageIo::CM_GRAY ); setDataType( ImageIo::FLOAT32 ); format = GL_LUMINANCE; break;
-			case GL_LUMINANCE_ALPHA: setChannelOrder( ImageIo::YA ); setColorModel( ImageIo::CM_GRAY ); setDataType( ImageIo::FLOAT32 ); format = GL_LUMINANCE_ALPHA; break;
+			case GL_R8: setChannelOrder( ImageIo::Y ); setColorModel( ImageIo::CM_GRAY ); setDataType( ImageIo::FLOAT32 ); format = GL_R8; break;
+			case GL_RG8: setChannelOrder( ImageIo::YA ); setColorModel( ImageIo::CM_GRAY ); setDataType( ImageIo::FLOAT32 ); format = GL_RG8; break;
 #if ! defined( CINDER_GLES )
 			case GL_RGBA8: setChannelOrder( ImageIo::RGBA ); setColorModel( ImageIo::CM_RGB ); setDataType( ImageIo::UINT8 ); format = GL_RGBA; break; 
 			case GL_RGB8: setChannelOrder( ImageIo::RGB ); setColorModel( ImageIo::CM_RGB ); setDataType( ImageIo::UINT8 ); format = GL_RGB; break;
 			case GL_BGR: setChannelOrder( ImageIo::RGB ); setColorModel( ImageIo::CM_RGB ); setDataType( ImageIo::FLOAT32 ); format = GL_RGB; break;
-			case GL_LUMINANCE8: setChannelOrder( ImageIo::Y ); setColorModel( ImageIo::CM_GRAY ); setDataType( ImageIo::UINT8 ); format = GL_LUMINANCE; break;
-			case GL_LUMINANCE8_ALPHA8: setChannelOrder( ImageIo::YA ); setColorModel( ImageIo::CM_GRAY ); setDataType( ImageIo::UINT8 ); format = GL_LUMINANCE_ALPHA; break; 
+//			case GL_R8: setChannelOrder( ImageIo::Y ); setColorModel( ImageIo::CM_GRAY ); setDataType( ImageIo::UINT8 ); format = GL_R8; break;
+//			case GL_RG8: setChannelOrder( ImageIo::YA ); setColorModel( ImageIo::CM_GRAY ); setDataType( ImageIo::UINT8 ); format = GL_RG8; break;
 			case GL_DEPTH_COMPONENT16: setChannelOrder( ImageIo::Y ); setColorModel( ImageIo::CM_GRAY ); setDataType( ImageIo::UINT16 ); format = GL_DEPTH_COMPONENT; break;
 			case GL_DEPTH_COMPONENT24: setChannelOrder( ImageIo::Y ); setColorModel( ImageIo::CM_GRAY ); setDataType( ImageIo::FLOAT32 ); format = GL_DEPTH_COMPONENT; break;
 			case GL_DEPTH_COMPONENT32: setChannelOrder( ImageIo::Y ); setColorModel( ImageIo::CM_GRAY ); setDataType( ImageIo::FLOAT32 ); format = GL_DEPTH_COMPONENT; break;
-			case GL_RGBA32F_ARB: setChannelOrder( ImageIo::RGBA ); setColorModel( ImageIo::CM_RGB ); setDataType( ImageIo::FLOAT32 ); format = GL_RGBA; break; 
-			case GL_RGB32F_ARB: setChannelOrder( ImageIo::RGB ); setColorModel( ImageIo::CM_RGB ); setDataType( ImageIo::FLOAT32 ); format = GL_RGB; break;
-			case GL_LUMINANCE32F_ARB: setChannelOrder( ImageIo::Y ); setColorModel( ImageIo::CM_GRAY ); setDataType( ImageIo::FLOAT32 ); format = GL_LUMINANCE; break;
-			case GL_LUMINANCE_ALPHA32F_ARB: setChannelOrder( ImageIo::YA ); setColorModel( ImageIo::CM_GRAY ); setDataType( ImageIo::FLOAT32 ); format = GL_LUMINANCE_ALPHA; break;
+			case GL_RGBA32F: setChannelOrder( ImageIo::RGBA ); setColorModel( ImageIo::CM_RGB ); setDataType( ImageIo::FLOAT32 ); format = GL_RGBA; break;
+			case GL_RGB32F: setChannelOrder( ImageIo::RGB ); setColorModel( ImageIo::CM_RGB ); setDataType( ImageIo::FLOAT32 ); format = GL_RGB; break;
+			case GL_R32F: setChannelOrder( ImageIo::Y ); setColorModel( ImageIo::CM_GRAY ); setDataType( ImageIo::FLOAT32 ); format = GL_R8; break;
+			case GL_RG32F: setChannelOrder( ImageIo::YA ); setColorModel( ImageIo::CM_GRAY ); setDataType( ImageIo::FLOAT32 ); format = GL_RG8; break;
 #endif
 			default: setChannelOrder( ImageIo::RGBA ); setColorModel( ImageIo::CM_RGB ); setDataType( ImageIo::FLOAT32 ); break;
 		}

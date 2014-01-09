@@ -185,6 +185,7 @@ class AppBasic : public App {
 	std::vector<std::string>	mCommandLineArgs;
 
 	Settings		mSettings;
+
 };
 
 } } // namespace cinder::app

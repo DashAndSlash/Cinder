@@ -5,10 +5,10 @@
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that
  the following conditions are met:
 
-    * Redistributions of source code must retain the above copyright notice, this list of conditions and
-	the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and
-	the following disclaimer in the documentation and/or other materials provided with the distribution.
+  	* Redistributions of source code must retain the above copyright notice, this list of conditions and
+  	the following disclaimer.
+  	* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and
+  	the following disclaimer in the documentation and/or other materials provided with the distribution.
 
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
@@ -61,13 +61,13 @@ void Vbo::unbind()
 void Vbo::bufferData( size_t size, const void *data, GLenum usage )
 {
 	bind();
-	glBufferDataARB( mObj->mTarget, size, data, usage );
+	glBufferData( mObj->mTarget, size, data, usage );
 }
 
 void Vbo::bufferSubData( ptrdiff_t offset, size_t size, const void *data )
 {
 	bind();
-	glBufferSubDataARB( mObj->mTarget, offset, size, data );
+	glBufferSubData( mObj->mTarget, offset, size, data );
 }
 
 uint8_t* Vbo::map( GLenum access )
@@ -450,8 +450,8 @@ void VboMesh::initializeBuffers( bool staticDataPlanar )
 
 void VboMesh::enableClientStates() const
 {
-	if( mObj->mLayout.hasPositions() )
-		glEnableClientState( GL_VERTEX_ARRAY );
+/*	if( mObj->mLayout.hasPositions() )
+		glEnableVertexAttribArray(<#GLuint index#>)ClientState( GL_VERTEX_ARRAY );
 	else
 		glDisableClientState( GL_VERTEX_ARRAY );
 	if( mObj->mLayout.hasNormals() )
@@ -480,12 +480,12 @@ void VboMesh::enableClientStates() const
 		if( mObj->mCustomDynamicLocations[a] < 0 )
 			throw;
 		glEnableVertexAttribArray( mObj->mCustomDynamicLocations[a] );
-	}
+	}*/
 }
 
 void VboMesh::disableClientStates() const
 {
-	glDisableClientState( GL_VERTEX_ARRAY );
+/*	glDisableClientState( GL_VERTEX_ARRAY );
 	glDisableClientState( GL_NORMAL_ARRAY );
 	glDisableClientState( GL_COLOR_ARRAY );
 	for( size_t t = 0; t <= ATTR_MAX_TEXTURE_UNIT; ++t ) {
@@ -505,11 +505,12 @@ void VboMesh::disableClientStates() const
 		if( mObj->mCustomDynamicLocations[a] < 0 )
 			throw;
 		glDisableVertexAttribArray( mObj->mCustomDynamicLocations[a] );
-	}
+	}*/
 }
 
 void VboMesh::bindAllData() const
 {
+	/*
 	if( mObj->mLayout.hasIndices() ) {
 		mObj->mBuffers[INDEX_BUFFER].bind();
 	}
@@ -560,7 +561,7 @@ void VboMesh::bindAllData() const
 			const GLvoid *offset = reinterpret_cast<const GLvoid*>( attributes[a].second );
 			glVertexAttribPointer( locations[a], Layout::sCustomAttrNumComponents[attributes[a].first], Layout::sCustomAttrTypes[attributes[a].first], GL_FALSE, stride, offset );
 		}	
-	}
+	}*/
 }
 
 void VboMesh::bindIndexBuffer() const
@@ -742,7 +743,7 @@ VboMesh::VertexIter::Obj::Obj( const VboMesh &mesh )
 	// Buffer NULL data to tell the driver we don't care about what's in there (See NVIDIA's "Using Vertex Buffer Objects" whitepaper)
 	mVbo.bind();
 	//mVbo.bufferData( mesh.mObj->mDynamicStride * mesh.mObj->mNumVertices, NULL, GL_STREAM_DRAW );
-	glBufferDataARB( GL_ARRAY_BUFFER, mesh.mObj->mDynamicStride * mesh.mObj->mNumVertices, NULL, GL_STREAM_DRAW );
+	glBufferData( GL_ARRAY_BUFFER, mesh.mObj->mDynamicStride * mesh.mObj->mNumVertices, NULL, GL_STREAM_DRAW );
 	//mData = mVbo.map( GL_WRITE_ONLY );
 	mData = reinterpret_cast<uint8_t*>( glMapBuffer( GL_ARRAY_BUFFER, GL_WRITE_ONLY ) );
 	mDataEnd = mData + mesh.mObj->mDynamicStride * mesh.getNumVertices();

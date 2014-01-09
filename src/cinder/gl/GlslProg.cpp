@@ -41,17 +41,17 @@ GlslProg::Obj::~Obj()
 	mObj->mHandle = glCreateProgram();
 	
 	if ( vertexShader )
-		loadShader( vertexShader->getBuffer(), GL_VERTEX_SHADER_ARB );
+		loadShader( vertexShader->getBuffer(), GL_VERTEX_SHADER );
     
 	if( fragmentShader )
-		loadShader( fragmentShader->getBuffer(), GL_FRAGMENT_SHADER_ARB );
+		loadShader( fragmentShader->getBuffer(), GL_FRAGMENT_SHADER );
     
 	if( geometryShader ) {
-		loadShader( geometryShader->getBuffer(), GL_GEOMETRY_SHADER_EXT );
+		loadShader( geometryShader->getBuffer(), GL_GEOMETRY_SHADER );
         
-        glProgramParameteriEXT(mObj->mHandle, GL_GEOMETRY_INPUT_TYPE_EXT, geometryInputType);
-        glProgramParameteriEXT(mObj->mHandle, GL_GEOMETRY_OUTPUT_TYPE_EXT, geometryOutputType);
-        glProgramParameteriEXT(mObj->mHandle, GL_GEOMETRY_VERTICES_OUT_EXT, geometryOutputVertices);
+        glProgramParameteri(mObj->mHandle, GL_GEOMETRY_INPUT_TYPE, geometryInputType);
+        glProgramParameteri(mObj->mHandle, GL_GEOMETRY_OUTPUT_TYPE, geometryOutputType);
+        glProgramParameteri(mObj->mHandle, GL_GEOMETRY_VERTICES_OUT, geometryOutputVertices);
     }
     
 	link();
@@ -63,17 +63,17 @@ GlslProg::GlslProg( const char *vertexShader, const char *fragmentShader, const 
 	mObj->mHandle = glCreateProgram();
 	
 	if ( vertexShader )
-		loadShader( vertexShader, GL_VERTEX_SHADER_ARB );
+		loadShader( vertexShader, GL_VERTEX_SHADER );
     
 	if( fragmentShader )
-		loadShader( fragmentShader, GL_FRAGMENT_SHADER_ARB );
+		loadShader( fragmentShader, GL_FRAGMENT_SHADER );
     
 	if( geometryShader ) {
-		loadShader( geometryShader, GL_GEOMETRY_SHADER_EXT );
+		loadShader( geometryShader, GL_GEOMETRY_SHADER );
         
-        glProgramParameteriEXT(mObj->mHandle, GL_GEOMETRY_INPUT_TYPE_EXT, geometryInputType);
-        glProgramParameteriEXT(mObj->mHandle, GL_GEOMETRY_OUTPUT_TYPE_EXT, geometryOutputType);
-        glProgramParameteriEXT(mObj->mHandle, GL_GEOMETRY_VERTICES_OUT_EXT, geometryOutputVertices);
+        glProgramParameteri(mObj->mHandle, GL_GEOMETRY_INPUT_TYPE, geometryInputType);
+        glProgramParameteri(mObj->mHandle, GL_GEOMETRY_OUTPUT_TYPE, geometryOutputType);
+        glProgramParameteri(mObj->mHandle, GL_GEOMETRY_VERTICES_OUT, geometryOutputVertices);
     }
     
 	link();
@@ -279,11 +279,11 @@ GLint GlslProg::getAttribLocation( const std::string &name )
 GlslProgCompileExc::GlslProgCompileExc( const std::string &log, GLint aShaderType ) throw()
 	: mShaderType( aShaderType )
 {
-	if( mShaderType == GL_VERTEX_SHADER_ARB )
+	if( mShaderType == GL_VERTEX_SHADER )
 		strncpy( mMessage, "VERTEX: ", 1000 );
-	else if( mShaderType == GL_FRAGMENT_SHADER_ARB )
+	else if( mShaderType == GL_FRAGMENT_SHADER )
 		strncpy( mMessage, "FRAGMENT: ", 1000 );
-	else if( mShaderType == GL_GEOMETRY_SHADER_EXT )
+	else if( mShaderType == GL_GEOMETRY_SHADER )
 		strncpy( mMessage, "GEOMETRY: ", 1000 );
 	else
 		strncpy( mMessage, "UNKNOWN: ", 1000 );

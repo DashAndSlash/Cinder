@@ -38,10 +38,10 @@ class gl4DemoApp : public AppNative {
 
 void gl4DemoApp::prepareSettings( Settings *settings){
     
-    settings->enableHighDensityDisplay();
-    settings->setWindowSize(480, 480);
+//    settings->enableHighDensityDisplay();
+    settings->setWindowSize(640, 480);
     settings->setFullScreen();
-    //settings->setBorderless();
+//    settings->setBorderless();
 }
 
 void gl4DemoApp::setup()
@@ -154,22 +154,14 @@ void gl4DemoApp::draw()
 	// clear out the window with black
 	gl::clear( color );
     gl::setViewport(toPixels(getWindowBounds()));
-    gl::setMatrices(mMayaCam.getCamera());
 
     gl::color(color);
-    //gl::Core::setColor(color);
-
-//    console()<<        gl::Core::mGLCore.get()->mColor.r << endl;
 
     mShaderProg->bind();
     
     mShaderProg->uniform("projectionMatrix", &mMayaCam.getCamera().getProjectionMatrix(), 1);
     mShaderProg->uniform("modelViewMatrix", &mMayaCam.getCamera().getModelViewMatrix(), 1);
 
-
-    
-    
-    
     mVaoHandle.bind();
     
 

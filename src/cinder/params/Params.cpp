@@ -153,7 +153,7 @@ class AntMgr {
 		// we have to do a fontscale set *before* TwInit:
 		if( fontScale > 1 )
 			TwDefine( (string(" GLOBAL fontscaling= ") + toString( fontScale )).c_str() );
-		if( ! TwInit( TW_OPENGL, NULL ) ) {
+		if( ! TwInit( TW_OPENGL_CORE, NULL ) ) {
 			throw Exception();
 		}		
 	}

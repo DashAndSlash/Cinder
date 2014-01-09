@@ -29,26 +29,26 @@ namespace cinder { namespace gl {
 
 DisplayList::Obj::~Obj()
 {
-	if( mID > 0 )
-		glDeleteLists( mID, 1 );		
+//	if( mID > 0 )
+//		glDeleteLists( mID, 1 );		
 }
 
 DisplayList::DisplayList( GLint aMode )
 	: mObj( shared_ptr<Obj>( new Obj ) )
 {
 	mObj->mModelMatrix.setToIdentity();
-	mObj->mID = glGenLists( 1 );
+//	mObj->mID = glGenLists( 1 );
 	mObj->mMode = aMode;
 }
 
 void DisplayList::newList()
 {
-	glNewList( mObj->mID, mObj->mMode );
+//	glNewList( mObj->mID, mObj->mMode );
 }
 
 void DisplayList::endList()
 {
-	glEndList();
+//	glEndList();
 }
 
 void DisplayList::draw() const
@@ -56,11 +56,11 @@ void DisplayList::draw() const
 	if( mObj->mMaterial )
 		mObj->mMaterial->apply();
 
-	glMatrixMode( GL_MODELVIEW );
-	glPushMatrix();
+//	glMatrixMode( GL_MODELVIEW );
+//	glPushMatrix();
 		gl::multModelView( mObj->mModelMatrix );
-		glCallList( mObj->mID );
-	glPopMatrix();
+//		glCallList( mObj->mID );
+//	glPopMatrix();
 }
 
 } } // namespace cinder::gl

@@ -61,8 +61,9 @@
 #   undef ANT_OSX
 #elif defined(__APPLE__)
 #   define ANT_OSX
-#   include <unistd.h>
 #   include <Foundation/Foundation.h>
+#   include <unistd.h>
+
 #   include <AppKit/NSImage.h>
 #   include <AppKit/NSCursor.h>
 #   undef _WIN32
@@ -82,14 +83,14 @@
 #endif
 
 /*#if !defined(ANT_OGL_HEADER_INCLUDED)
-#   if defined(ANT_OSX)
-#   	include <OpenGL/gl.h>
-#   else
-#	    include <GL/gl.h>  // must be included after windows.h
-#   endif
-#   define  ANT_OGL_HEADER_INCLUDED
-#endif*/
+ #   if defined(ANT_OSX)
+ #   	include <OpenGL/gl.h>
+ #   else
+ #	    include <GL/gl.h>  // must be included after windows.h
+ #   endif
+ #   define  ANT_OGL_HEADER_INCLUDED
+ #endif*/
 #define  ANT_OGL_HEADER_INCLUDED
 #include "cinder/gl/gl.h"
-
+#include <OpenGL/gl.h>
 #endif  // !defined ANT_TW_PRECOMP_INCLUDED

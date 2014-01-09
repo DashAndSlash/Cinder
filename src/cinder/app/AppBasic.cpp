@@ -87,6 +87,7 @@ void AppBasic::launch( const char *title, int argc, char * const argv[] )
 
 	mSettings.setTitle( title );
 
+	
 	prepareSettings( &mSettings );
 	if( ! mSettings.isPrepared() ) {
 		return;
