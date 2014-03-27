@@ -11,43 +11,47 @@
 
 using namespace std;
 
-Vao::Obj::Obj()
-{
-	glGenVertexArrays( 1, &mId );
-}
+namespace gl4 {
+    
+    Vao::Obj::Obj()
+    {
+        
+    }
+    
+    Vao::Obj::~Obj()
+    {
+        glDeleteVertexArrays( 1, &mId );
+    }
+    
+    Vao::Vao( ) : mObj(shared_ptr<Obj>( new Obj( ) ))
+    {
 
-Vao::Obj::~Obj()
-{
-	glDeleteVertexArrays( 1, &mId );
-}
-
-Vao::Vao( )
-{
-
-}
-
-void Vao::generate()
-{
-	mObj = shared_ptr<Vao::Obj>( new Obj( ) );
-}
-
-void Vao::bind()
-{
-	glBindVertexArray( mObj->mId );
-}
-
-void Vao::unbind()
-{
-	glBindVertexArray( 0 );
-
-}
-
-
-void Vao::vertexAttribPointer( GLuint attribLoc, size_t size, GLenum type, GLsizei stride, GLsizei offset, GLboolean normalized)
-{
-    bind();
-    glEnableVertexAttribArray(attribLoc);
-	glVertexAttribPointer( attribLoc, (GLint)size, type, normalized, stride, (void *) offset);
+    }
+    
+    void Vao::generate()
+    {
+        glGenVertexArrays( 1, &mObj->mId );
+    }
+    
+    void Vao::bind()
+    {
+        glBindVertexArray( mObj->mId );
+    }
+    
+    void Vao::unbind()
+    {
+        glBindVertexArray( 0 );
+        
+    }
+    
+    
+    void Vao::vertexAttribPointer( GLuint attribLoc, size_t size, GLenum type, GLsizei stride, GLsizei offset, GLboolean normalized)
+    {
+        bind();
+        glEnableVertexAttribArray(attribLoc);
+        glVertexAttribPointer( attribLoc, (GLint)size, type, normalized, stride, (void *) offset);
+        
+    }
 
 }
 

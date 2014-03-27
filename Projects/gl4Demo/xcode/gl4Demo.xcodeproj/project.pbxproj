@@ -17,6 +17,10 @@
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		B0B753EB8B2E4E7798FB6AA0 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = B39C1DA0E14B4A9EAE33445B /* CinderApp.icns */; };
+		BF46C72418DE17BD00E20C2D /* shaderScreen.vert in Resources */ = {isa = PBXBuildFile; fileRef = BF46C72318DE17BD00E20C2D /* shaderScreen.vert */; };
+		BF46C72618DE17CB00E20C2D /* shaderScreen.frag in Resources */ = {isa = PBXBuildFile; fileRef = BF46C72518DE17CB00E20C2D /* shaderScreen.frag */; };
+		BF46C72A18DE460B00E20C2D /* img.png in Resources */ = {isa = PBXBuildFile; fileRef = BF46C72918DE460B00E20C2D /* img.png */; };
+		BF46C73118DE46EC00E20C2D /* Quad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF46C72F18DE46EC00E20C2D /* Quad.cpp */; };
 		BFF759341868B6DE00D271D7 /* shader.vert in Sources */ = {isa = PBXBuildFile; fileRef = BFF759331868B6DE00D271D7 /* shader.vert */; };
 		BFF759361868B6FB00D271D7 /* shader.frag in Sources */ = {isa = PBXBuildFile; fileRef = BFF759351868B6FB00D271D7 /* shader.frag */; };
 		BFF75954187CA00200D271D7 /* Vao.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFF75952187CA00200D271D7 /* Vao.cpp */; };
@@ -39,6 +43,11 @@
 		8D1107320486CEB800E47090 /* gl4Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gl4Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B39C1DA0E14B4A9EAE33445B /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
 		B7C48C5D0D1143F3BE74D421 /* gl4Demo_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = gl4Demo_Prefix.pch; sourceTree = "<group>"; };
+		BF46C72318DE17BD00E20C2D /* shaderScreen.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shaderScreen.vert; sourceTree = "<group>"; };
+		BF46C72518DE17CB00E20C2D /* shaderScreen.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shaderScreen.frag; sourceTree = "<group>"; };
+		BF46C72918DE460B00E20C2D /* img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.png; sourceTree = "<group>"; };
+		BF46C72F18DE46EC00E20C2D /* Quad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Quad.cpp; path = ../src/Quad.cpp; sourceTree = "<group>"; };
+		BF46C73018DE46EC00E20C2D /* Quad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Quad.h; path = ../src/Quad.h; sourceTree = "<group>"; };
 		BFF759331868B6DE00D271D7 /* shader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader.vert; sourceTree = "<group>"; };
 		BFF759351868B6FB00D271D7 /* shader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader.frag; sourceTree = "<group>"; };
 		BFF75952187CA00200D271D7 /* Vao.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Vao.cpp; path = ../src/Vao.cpp; sourceTree = "<group>"; };
@@ -74,6 +83,7 @@
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				BF46C72F18DE46EC00E20C2D /* Quad.cpp */,
 				BFF75952187CA00200D271D7 /* Vao.cpp */,
 				1E24EB04D9834B2A8FA4FB14 /* gl4DemoApp.cpp */,
 			);
@@ -129,6 +139,7 @@
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				BF46C73018DE46EC00E20C2D /* Quad.h */,
 				BFF75953187CA00200D271D7 /* Vao.h */,
 				8149F24380DD42E695E33230 /* Resources.h */,
 				B7C48C5D0D1143F3BE74D421 /* gl4Demo_Prefix.pch */,
@@ -157,8 +168,11 @@
 		BFF759321868B6B500D271D7 /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				BF46C72918DE460B00E20C2D /* img.png */,
 				BFF759331868B6DE00D271D7 /* shader.vert */,
 				BFF759351868B6FB00D271D7 /* shader.frag */,
+				BF46C72318DE17BD00E20C2D /* shaderScreen.vert */,
+				BF46C72518DE17CB00E20C2D /* shaderScreen.frag */,
 			);
 			name = assets;
 			path = ../assets;
@@ -216,7 +230,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF46C72618DE17CB00E20C2D /* shaderScreen.frag in Resources */,
 				B0B753EB8B2E4E7798FB6AA0 /* CinderApp.icns in Resources */,
+				BF46C72418DE17BD00E20C2D /* shaderScreen.vert in Resources */,
+				BF46C72A18DE460B00E20C2D /* img.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,6 +248,7 @@
 				3C7B1B0CB4324004B31BC76E /* gl4DemoApp.cpp in Sources */,
 				BFF75954187CA00200D271D7 /* Vao.cpp in Sources */,
 				BFF759341868B6DE00D271D7 /* shader.vert in Sources */,
+				BF46C73118DE46EC00E20C2D /* Quad.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
