@@ -5,6 +5,9 @@
 #include "cinder/MayaCamUI.h"
 #include "cinder/Utilities.h"
 #include "cinder/gl/GlslProg.h"
+#include "cinder/params/Params.h"
+
+#include "../src/AntTweakBar/AntTweakBar.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -21,7 +24,10 @@ class PBOVBOdemoApp : public AppNative {
 	void mouseDrag( MouseEvent event );
 	void update();
 	void resize();
+    
 	void draw();
+    void calcShaderNoise();
+    
     void shutdown();
     void loadShaders();
     void readFBOtoVBO();
@@ -37,32 +43,31 @@ class PBOVBOdemoApp : public AppNative {
     gl::GlslProgRef shader;
     gl::GlslProgRef pointShader;
     int         vCount;
+
     MayaCamUI   mMayaCam;
-    CameraPersp _cam;
-    
     int         _index;
     int         _nextIndex;
-
-    Settings *mSettings;
     
-    bool    mRenderTexture;
+    bool        mRenderTexture;
     gl::TextureRef mTexture;
+    
+    params::InterfaceGlRef  controls;
+    float       timeMult;
 };
 
 void PBOVBOdemoApp::prepareSettings( Settings *settings){
-    
-    mSettings = settings;
 
     settings->enableHighDensityDisplay();
-    //settings->setWindowSize(1440, 900);
-    //settings->setFullScreen();
+    gl::disableVerticalSync();
     
-    //settings->setAlwaysOnTop();
 }
 
 
 void PBOVBOdemoApp::setup()
 {
+
+    timeMult=1.0;
+    
     console() << glGetString(GL_VERSION) << endl;
     _index = 0;
     _nextIndex = 0;
@@ -71,9 +76,7 @@ void PBOVBOdemoApp::setup()
     
     gl::Fbo::Format format;
     format.setColorInternalFormat(GL_RGB32F_ARB);
-    format.setCoverageSamples(16);
-    format.setSamples(16);
-    format.enableDepthBuffer();
+
     mFBO = gl::Fbo( FBO_W, FBO_H, format );
     
     GLuint pboVboId[PBO_COUNT];
@@ -87,6 +90,13 @@ void PBOVBOdemoApp::setup()
         mVBO[i].unbind();
         pboVboId[i] = mVBO[i].getId();
     }
+    
+    CameraPersp cam = mMayaCam.getCamera();
+    
+    cam.setCenterOfInterestPoint(Vec3f::zero());
+    
+    mMayaCam.setCurrentCam(cam);
+    
     // = mVBO[0].getId();
     
 //    glGenBuffers(PBO_COUNT, pboVboId);
@@ -97,39 +107,30 @@ void PBOVBOdemoApp::setup()
 ////    
 //    glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
     
-    glClampColorARB(GL_CLAMP_VERTEX_COLOR_ARB, GL_FALSE);
-    glClampColorARB(GL_CLAMP_FRAGMENT_COLOR_ARB, GL_FALSE);
-    glClampColorARB(GL_CLAMP_READ_COLOR_ARB, GL_FALSE);
+//    glClampColorARB(GL_CLAMP_VERTEX_COLOR_ARB, GL_FALSE);
+//    glClampColorARB(GL_CLAMP_FRAGMENT_COLOR_ARB, GL_FALSE);
+//    glClampColorARB(GL_CLAMP_READ_COLOR_ARB, GL_FALSE);
+    
     loadShaders();
     
-    //gl::disableVerticalSync();
     gl::enableDepthRead();
     gl::enableDepthWrite();
     
     glEnable(GL_POINT_SMOOTH);
     glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
-
-    //glTexEnvi(GL_POINT_SPRITE_ARB, GL_COORD_REPLACE_ARB, GL_TRUE);
+    glEnable( GL_MULTISAMPLE_ARB );
+    
+    controls = params::InterfaceGl::create("Controls", toPixels(Vec2i(200,100)));
+    controls->addParam("Time multiplier", &timeMult, "min=0.0 max=5.0 step=0.001");
+    TwDefine( "Controls position='10 50' ");
+    
 }
 
 void PBOVBOdemoApp::loadShaders(){
     
-    const char* fragFile = "shader01_frag.glsl";
-    
-    
-    string stringPathFrag = getAssetPath(fs::path( fragFile )).string();
-    
-    
-    const char* vertFile = "passThru_vert.glsl";
-    
-    string stringPathVert = getAssetPath(fs::path( vertFile )).string();
-    
-    const char* fragFile2 = "pointSprite.frag";
-    string stringPathFrag2 = getAssetPath(fs::path( fragFile2 )).string();
-    
     try {
-        pointShader = gl::GlslProg::create(loadFile( stringPathVert ), loadFile(stringPathFrag2));
-		shader = gl::GlslProg::create( loadFile( stringPathVert ), loadFile( stringPathFrag ) );
+        pointShader = gl::GlslProg::create( loadAsset("passThru_vert.glsl"), loadAsset("shader03_frag.glsl"));
+		shader = gl::GlslProg::create( loadAsset("passThru_vert.glsl"), loadAsset( "shader01_frag.glsl" ) );
 	
 	}
 	catch( gl::GlslProgCompileExc &exc ) {
@@ -145,18 +146,23 @@ void PBOVBOdemoApp::loadShaders(){
 
 void PBOVBOdemoApp::update()
 {
+    gl::enableDepthRead();
+    gl::enableDepthWrite();
+    
     mFBO.bindFramebuffer();
     readFBOtoVBO();
     mFBO.unbindFramebuffer();
+    
+    calcShaderNoise();
 }
 
-void PBOVBOdemoApp::draw()
+void PBOVBOdemoApp::calcShaderNoise()
 {
 
     mFBO.bindFramebuffer();
     shader->bind();
-
-    shader->uniform("time", (float)getElapsedSeconds());
+    
+    shader->uniform("time", (float)getElapsedSeconds()*timeMult);
     Vec2f res = Vec2f((mFBO.getWidth()),(mFBO.getHeight()));
     shader->uniform("resolution", res);
     Vec2f mousenorm = Vec2f(float(getMousePos().x)/res.x, float(getMousePos().y)/res.y);
@@ -165,42 +171,41 @@ void PBOVBOdemoApp::draw()
     gl::setMatricesWindow((mFBO.getSize()));
     gl::setViewport((mFBO.getBounds()));
     
-    gl::drawSolidRect( (mFBO.getBounds()));//Rectf(0.0,0.0,mFBO.getWidth(),mFBO.getHeight()));
+    gl::drawSolidRect( (mFBO.getBounds()) );
     
-
     shader->unbind();
     
     mFBO.unbindFramebuffer();
     
-    
+}
+
+void PBOVBOdemoApp::draw()
+{
+
 	// clear out the window with black
 	gl::clear( ColorA( 0, 0, 0, 0.0 ) );
     
-    gl::color(1.0, 1.0, 1.0,1.0);
+    gl::color(1.0, 1.0, 1.0, 1.0);
     
-
-
     gl::setMatrices(mMayaCam.getCamera());
     gl::setViewport(toPixels(getWindowBounds()));
     gl::enableAlphaBlending();
     
-    
-    
 //    glEnable(GL_POINT_SPRITE);
-//	glTexEnvi(GL_POINT_SPRITE, GL_COORD_REPLACE, GL_TRUE);
-//	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);		// Enable Vertex Points
-//    
+//    glTexEnvi(GL_POINT_SPRITE, GL_COORD_REPLACE, GL_TRUE);
+//    glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);		// Enable Vertex Points
+//
 //    mTexture->bind(0);
-    
-    
+
+//    
 //    pointShader->bind();
-//    pointShader->uniform("tex", 0);
+//    pointShader->uniform("tex0", 0);
+    
     gl::enableAlphaBlending();
-    gl::color(ColorA(0.90,1.0,1.0,0.4));
+//    gl::color(ColorA(1.0,1.0,1.0,1.0));
+    
     mVBO[_nextIndex].bind();
     
-
-
     glEnableClientState(GL_VERTEX_ARRAY);
 //    glEnableClientState(GL_COLOR_ARRAY);
 
@@ -212,9 +217,7 @@ void PBOVBOdemoApp::draw()
     glDisableClientState(GL_VERTEX_ARRAY);
 //    glDisableClientState(GL_COLOR_ARRAY);
 
-
-    
-    mVBO[_nextIndex].unbind();
+    mVBO[_index].unbind();
 
 //    pointShader->unbind();
 
@@ -223,22 +226,19 @@ void PBOVBOdemoApp::draw()
     
     gl::setMatricesWindow(toPixels(getWindowSize()));
     gl::setViewport(toPixels(getWindowBounds()));
+    
     gl::disableDepthRead();
     gl::disableDepthWrite();
-
     
     if (mRenderTexture)
     {
-//        gl::setMatricesWindow(toPixels(getWindowSize()));
-//        gl::setViewport(toPixels(getWindowBounds()));
         gl::draw(mFBO.getTexture());
     }
+    
     gl::drawString( toString(getAverageFps()) , Vec2f(10.0,15.0));
     gl::drawString("Particles: " + toString(FBO_H*FBO_W), Vec2f(10.0,30.0));
-    gl::enableDepthRead();
-    gl::enableDepthWrite();
-    gl::disableAlphaBlending();
-
+    
+    controls->draw();
 }
 
 void PBOVBOdemoApp::readFBOtoVBO(){
@@ -248,7 +248,7 @@ void PBOVBOdemoApp::readFBOtoVBO(){
 //    _index=0;
     //glReadBuffer(GL_FRONT);
     //glReadBuffer(GL_COLOR_ATTACHMENT0_EXT);
-    glBindBuffer(GL_PIXEL_PACK_BUFFER, mVBO[_index].getId());
+    glBindBuffer(GL_PIXEL_PACK_BUFFER, mVBO[_nextIndex].getId());
 
     glReadPixels(0, 0, FBO_W, FBO_H, GL_RGB, GL_FLOAT, NULL);
    
@@ -263,7 +263,6 @@ void PBOVBOdemoApp::readFBOtoVBO(){
 //        glUnmapBuffer(GL_PIXEL_PACK_BUFFER);
 //    }
     glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
-
 }
 
 void PBOVBOdemoApp::keyUp( KeyEvent event ) {
@@ -298,10 +297,9 @@ void PBOVBOdemoApp::mouseDrag( MouseEvent event )
 
 void PBOVBOdemoApp::resize( )
 {
-    _cam = mMayaCam.getCamera();
-
-    _cam.setAspectRatio(getWindowAspectRatio());
-    mMayaCam.setCurrentCam(_cam);
+    CameraPersp cam = mMayaCam.getCamera();
+    cam.setAspectRatio(getWindowAspectRatio());
+    mMayaCam.setCurrentCam(cam);
 }
 
 void PBOVBOdemoApp::shutdown(){
@@ -310,8 +308,7 @@ void PBOVBOdemoApp::shutdown(){
     for(int i=0;i<PBO_COUNT;i++){
         GLuint id=mVBO[i].getId();
         glDeleteBuffers(1, &id);
-        
     }
 }
 
-CINDER_APP_NATIVE( PBOVBOdemoApp, RendererGl(16) )
+CINDER_APP_NATIVE( PBOVBOdemoApp, RendererGl(RendererGl::AA_NONE) )

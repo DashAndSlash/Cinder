@@ -22,6 +22,8 @@
 		BF46C73C18E46F8A00E20C2D /* shader01_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = BF46C73618E46F8A00E20C2D /* shader01_frag.glsl */; };
 		BF46C73D18E46F8A00E20C2D /* shader02_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = BF46C73718E46F8A00E20C2D /* shader02_frag.glsl */; };
 		BF46C73E18E46F8A00E20C2D /* shader03_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = BF46C73818E46F8A00E20C2D /* shader03_frag.glsl */; };
+		BFFC798F18E48AFC0019419D /* particle2.png in Resources */ = {isa = PBXBuildFile; fileRef = BFFC798E18E48AFC0019419D /* particle2.png */; };
+		BFFC799118E48C910019419D /* particle2_b.png in Resources */ = {isa = PBXBuildFile; fileRef = BFFC799018E48C910019419D /* particle2_b.png */; };
 		F270773F488B48659A5D019F /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7D498F105D834D74A09D71F2 /* CinderApp.icns */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +48,8 @@
 		BF46C73618E46F8A00E20C2D /* shader01_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shader01_frag.glsl; sourceTree = "<group>"; };
 		BF46C73718E46F8A00E20C2D /* shader02_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shader02_frag.glsl; sourceTree = "<group>"; };
 		BF46C73818E46F8A00E20C2D /* shader03_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shader03_frag.glsl; sourceTree = "<group>"; };
+		BFFC798E18E48AFC0019419D /* particle2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle2.png; sourceTree = "<group>"; };
+		BFFC799018E48C910019419D /* particle2_b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle2_b.png; sourceTree = "<group>"; };
 		E6684B1C53524CE49A35C3A0 /* PBOVBOdemo_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = PBOVBOdemo_Prefix.pch; sourceTree = "<group>"; };
 		E971F2C1844F4103946D955A /* PBOVBOdemoApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = PBOVBOdemoApp.cpp; path = ../src/PBOVBOdemoApp.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -160,7 +164,9 @@
 		BF46C73218E46F8A00E20C2D /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				BFFC799018E48C910019419D /* particle2_b.png */,
 				BF46C73318E46F8A00E20C2D /* particle.png */,
+				BFFC798E18E48AFC0019419D /* particle2.png */,
 				BF46C73418E46F8A00E20C2D /* passThru_vert.glsl */,
 				BF46C73518E46F8A00E20C2D /* pointSprite.frag */,
 				BF46C73618E46F8A00E20C2D /* shader01_frag.glsl */,
@@ -229,6 +235,8 @@
 				BF46C73A18E46F8A00E20C2D /* passThru_vert.glsl in Resources */,
 				BF46C73918E46F8A00E20C2D /* particle.png in Resources */,
 				BF46C73C18E46F8A00E20C2D /* shader01_frag.glsl in Resources */,
+				BFFC799118E48C910019419D /* particle2_b.png in Resources */,
+				BFFC798F18E48AFC0019419D /* particle2.png in Resources */,
 				BF46C73B18E46F8A00E20C2D /* pointSprite.frag in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -250,6 +258,7 @@
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
@@ -265,6 +274,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder_d.a\"";
 				PRODUCT_NAME = PBOVBOdemo;
 				SYMROOT = ./build;
@@ -275,6 +285,7 @@
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -287,6 +298,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder.a\"";
 				PRODUCT_NAME = PBOVBOdemo;
 				STRIP_INSTALLED_PRODUCT = YES;
