@@ -75,7 +75,7 @@ void PBOVBOdemoApp::setup()
     mRenderTexture = false;
     
     gl::Fbo::Format format;
-    format.setColorInternalFormat(GL_RGB32F_ARB);
+    format.setColorInternalFormat(GL_RGB_FLOAT32_APPLE);
 
     mFBO = gl::Fbo( FBO_W, FBO_H, format );
     
