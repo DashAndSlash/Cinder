@@ -14,16 +14,17 @@
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
-		7FDCA29B1EDA4DD0AE8E89FF /* PBOVBOdemoApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E971F2C1844F4103946D955A /* PBOVBOdemoApp.cpp */; };
+		68ABADFBE31D4E6C95646998 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = B3E1AC04D0284B3EB5C93123 /* CinderApp.icns */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		BF46C73918E46F8A00E20C2D /* particle.png in Resources */ = {isa = PBXBuildFile; fileRef = BF46C73318E46F8A00E20C2D /* particle.png */; };
-		BF46C73A18E46F8A00E20C2D /* passThru_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = BF46C73418E46F8A00E20C2D /* passThru_vert.glsl */; };
-		BF46C73B18E46F8A00E20C2D /* pointSprite.frag in Resources */ = {isa = PBXBuildFile; fileRef = BF46C73518E46F8A00E20C2D /* pointSprite.frag */; };
-		BF46C73C18E46F8A00E20C2D /* shader01_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = BF46C73618E46F8A00E20C2D /* shader01_frag.glsl */; };
-		BF46C73E18E46F8A00E20C2D /* shader03_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = BF46C73818E46F8A00E20C2D /* shader03_frag.glsl */; };
-		BFFC798F18E48AFC0019419D /* particle2.png in Resources */ = {isa = PBXBuildFile; fileRef = BFFC798E18E48AFC0019419D /* particle2.png */; };
-		BFFC799118E48C910019419D /* particle2_b.png in Resources */ = {isa = PBXBuildFile; fileRef = BFFC799018E48C910019419D /* particle2_b.png */; };
-		F270773F488B48659A5D019F /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7D498F105D834D74A09D71F2 /* CinderApp.icns */; };
+		8F7AC90EDBAC449E8200C60D /* FBOVBOdemoApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB49C31C0E4F4F82A6FD1966 /* FBOVBOdemoApp.cpp */; };
+		BF45FCD718E5C3480020E62A /* particle.png in Resources */ = {isa = PBXBuildFile; fileRef = BF45FCCF18E5C3480020E62A /* particle.png */; };
+		BF45FCD818E5C3480020E62A /* particle2.png in Resources */ = {isa = PBXBuildFile; fileRef = BF45FCD018E5C3480020E62A /* particle2.png */; };
+		BF45FCD918E5C3480020E62A /* particle2_b.png in Resources */ = {isa = PBXBuildFile; fileRef = BF45FCD118E5C3480020E62A /* particle2_b.png */; };
+		BF45FCDA18E5C3480020E62A /* passThru_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = BF45FCD218E5C3480020E62A /* passThru_vert.glsl */; };
+		BF45FCDB18E5C3480020E62A /* pointSprite.frag in Resources */ = {isa = PBXBuildFile; fileRef = BF45FCD318E5C3480020E62A /* pointSprite.frag */; };
+		BF45FCDC18E5C3480020E62A /* shader01_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = BF45FCD418E5C3480020E62A /* shader01_frag.glsl */; };
+		BF45FCDD18E5C3480020E62A /* displaceVBO_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = BF45FCD518E5C3480020E62A /* displaceVBO_vert.glsl */; };
+		BF45FCDE18E5C3480020E62A /* passThru_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = BF45FCD618E5C3480020E62A /* passThru_frag.glsl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,21 +36,22 @@
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		3EC13BB7A031423E894F2939 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		5323E6B50EAFCA7E003A9687 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
-		53A06A7AFA0048DE85845FAB /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
-		7D498F105D834D74A09D71F2 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* PBOVBOdemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PBOVBOdemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BF46C73318E46F8A00E20C2D /* particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle.png; sourceTree = "<group>"; };
-		BF46C73418E46F8A00E20C2D /* passThru_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = passThru_vert.glsl; sourceTree = "<group>"; };
-		BF46C73518E46F8A00E20C2D /* pointSprite.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = pointSprite.frag; sourceTree = "<group>"; };
-		BF46C73618E46F8A00E20C2D /* shader01_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shader01_frag.glsl; sourceTree = "<group>"; };
-		BF46C73818E46F8A00E20C2D /* shader03_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shader03_frag.glsl; sourceTree = "<group>"; };
-		BFFC798E18E48AFC0019419D /* particle2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle2.png; sourceTree = "<group>"; };
-		BFFC799018E48C910019419D /* particle2_b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle2_b.png; sourceTree = "<group>"; };
-		E6684B1C53524CE49A35C3A0 /* PBOVBOdemo_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = PBOVBOdemo_Prefix.pch; sourceTree = "<group>"; };
-		E971F2C1844F4103946D955A /* PBOVBOdemoApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = PBOVBOdemoApp.cpp; path = ../src/PBOVBOdemoApp.cpp; sourceTree = "<group>"; };
+		8D1107320486CEB800E47090 /* FBOVBOdemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FBOVBOdemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		95B12D032B1148B1AEBAEB4F /* FBOVBOdemo_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = FBOVBOdemo_Prefix.pch; sourceTree = "<group>"; };
+		B3E1AC04D0284B3EB5C93123 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
+		B4F57EAD5EEF4BAAA679A39A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF45FCCF18E5C3480020E62A /* particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle.png; sourceTree = "<group>"; };
+		BF45FCD018E5C3480020E62A /* particle2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle2.png; sourceTree = "<group>"; };
+		BF45FCD118E5C3480020E62A /* particle2_b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle2_b.png; sourceTree = "<group>"; };
+		BF45FCD218E5C3480020E62A /* passThru_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = passThru_vert.glsl; sourceTree = "<group>"; };
+		BF45FCD318E5C3480020E62A /* pointSprite.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = pointSprite.frag; sourceTree = "<group>"; };
+		BF45FCD418E5C3480020E62A /* shader01_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shader01_frag.glsl; sourceTree = "<group>"; };
+		BF45FCD518E5C3480020E62A /* displaceVBO_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = displaceVBO_vert.glsl; sourceTree = "<group>"; };
+		BF45FCD618E5C3480020E62A /* passThru_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = passThru_frag.glsl; sourceTree = "<group>"; };
+		D512C9C6372D496B8F024A47 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
+		EB49C31C0E4F4F82A6FD1966 /* FBOVBOdemoApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = FBOVBOdemoApp.cpp; path = ../src/FBOVBOdemoApp.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +83,7 @@
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				E971F2C1844F4103946D955A /* PBOVBOdemoApp.cpp */,
+				EB49C31C0E4F4F82A6FD1966 /* FBOVBOdemoApp.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -113,15 +115,15 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D1107320486CEB800E47090 /* PBOVBOdemo.app */,
+				8D1107320486CEB800E47090 /* FBOVBOdemo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA /* PBOVBOdemo */ = {
+		29B97314FDCFA39411CA2CEA /* FBOVBOdemo */ = {
 			isa = PBXGroup;
 			children = (
-				BF46C73218E46F8A00E20C2D /* assets */,
+				BF45FCCE18E5C3480020E62A /* assets */,
 				01B97315FEAEA392516A2CEA /* Blocks */,
 				29B97315FDCFA39411CA2CEA /* Headers */,
 				080E96DDFE201D6D7F000001 /* Source */,
@@ -129,14 +131,14 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
-			name = PBOVBOdemo;
+			name = FBOVBOdemo;
 			sourceTree = "<group>";
 		};
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				53A06A7AFA0048DE85845FAB /* Resources.h */,
-				E6684B1C53524CE49A35C3A0 /* PBOVBOdemo_Prefix.pch */,
+				D512C9C6372D496B8F024A47 /* Resources.h */,
+				95B12D032B1148B1AEBAEB4F /* FBOVBOdemo_Prefix.pch */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -144,8 +146,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				7D498F105D834D74A09D71F2 /* CinderApp.icns */,
-				3EC13BB7A031423E894F2939 /* Info.plist */,
+				B3E1AC04D0284B3EB5C93123 /* CinderApp.icns */,
+				B4F57EAD5EEF4BAAA679A39A /* Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -159,27 +161,27 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		BF46C73218E46F8A00E20C2D /* assets */ = {
+		BF45FCCE18E5C3480020E62A /* assets */ = {
 			isa = PBXGroup;
 			children = (
-				BFFC799018E48C910019419D /* particle2_b.png */,
-				BF46C73318E46F8A00E20C2D /* particle.png */,
-				BFFC798E18E48AFC0019419D /* particle2.png */,
-				BF46C73418E46F8A00E20C2D /* passThru_vert.glsl */,
-				BF46C73518E46F8A00E20C2D /* pointSprite.frag */,
-				BF46C73618E46F8A00E20C2D /* shader01_frag.glsl */,
-				BF46C73818E46F8A00E20C2D /* shader03_frag.glsl */,
+				BF45FCCF18E5C3480020E62A /* particle.png */,
+				BF45FCD018E5C3480020E62A /* particle2.png */,
+				BF45FCD118E5C3480020E62A /* particle2_b.png */,
+				BF45FCD218E5C3480020E62A /* passThru_vert.glsl */,
+				BF45FCD318E5C3480020E62A /* pointSprite.frag */,
+				BF45FCD418E5C3480020E62A /* shader01_frag.glsl */,
+				BF45FCD518E5C3480020E62A /* displaceVBO_vert.glsl */,
+				BF45FCD618E5C3480020E62A /* passThru_frag.glsl */,
 			);
-			name = assets;
-			path = ../assets;
+			path = assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D1107260486CEB800E47090 /* PBOVBOdemo */ = {
+		8D1107260486CEB800E47090 /* FBOVBOdemo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "PBOVBOdemo" */;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "FBOVBOdemo" */;
 			buildPhases = (
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
@@ -189,10 +191,10 @@
 			);
 			dependencies = (
 			);
-			name = PBOVBOdemo;
+			name = FBOVBOdemo;
 			productInstallPath = "$(HOME)/Applications";
-			productName = PBOVBOdemo;
-			productReference = 8D1107320486CEB800E47090 /* PBOVBOdemo.app */;
+			productName = FBOVBOdemo;
+			productReference = 8D1107320486CEB800E47090 /* FBOVBOdemo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -202,7 +204,7 @@
 			isa = PBXProject;
 			attributes = {
 			};
-			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "PBOVBOdemo" */;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "FBOVBOdemo" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -212,11 +214,11 @@
 				French,
 				German,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA /* PBOVBOdemo */;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* FBOVBOdemo */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D1107260486CEB800E47090 /* PBOVBOdemo */,
+				8D1107260486CEB800E47090 /* FBOVBOdemo */,
 			);
 		};
 /* End PBXProject section */
@@ -226,14 +228,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF46C73E18E46F8A00E20C2D /* shader03_frag.glsl in Resources */,
-				F270773F488B48659A5D019F /* CinderApp.icns in Resources */,
-				BF46C73A18E46F8A00E20C2D /* passThru_vert.glsl in Resources */,
-				BF46C73918E46F8A00E20C2D /* particle.png in Resources */,
-				BF46C73C18E46F8A00E20C2D /* shader01_frag.glsl in Resources */,
-				BFFC799118E48C910019419D /* particle2_b.png in Resources */,
-				BFFC798F18E48AFC0019419D /* particle2.png in Resources */,
-				BF46C73B18E46F8A00E20C2D /* pointSprite.frag in Resources */,
+				BF45FCDA18E5C3480020E62A /* passThru_vert.glsl in Resources */,
+				BF45FCDB18E5C3480020E62A /* pointSprite.frag in Resources */,
+				BF45FCDD18E5C3480020E62A /* displaceVBO_vert.glsl in Resources */,
+				68ABADFBE31D4E6C95646998 /* CinderApp.icns in Resources */,
+				BF45FCD918E5C3480020E62A /* particle2_b.png in Resources */,
+				BF45FCDC18E5C3480020E62A /* shader01_frag.glsl in Resources */,
+				BF45FCDE18E5C3480020E62A /* passThru_frag.glsl in Resources */,
+				BF45FCD818E5C3480020E62A /* particle2.png in Resources */,
+				BF45FCD718E5C3480020E62A /* particle.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,7 +247,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7FDCA29B1EDA4DD0AE8E89FF /* PBOVBOdemoApp.cpp in Sources */,
+				8F7AC90EDBAC449E8200C60D /* FBOVBOdemoApp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,7 +257,6 @@
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
@@ -262,7 +264,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = PBOVBOdemo_Prefix.pch;
+				GCC_PREFIX_HEADER = FBOVBOdemo_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -270,9 +272,8 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder_d.a\"";
-				PRODUCT_NAME = PBOVBOdemo;
+				PRODUCT_NAME = FBOVBOdemo;
 				SYMROOT = ./build;
 				WRAPPER_EXTENSION = app;
 			};
@@ -281,7 +282,6 @@
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -290,13 +290,12 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = PBOVBOdemo_Prefix.pch;
+				GCC_PREFIX_HEADER = FBOVBOdemo_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder.a\"";
-				PRODUCT_NAME = PBOVBOdemo;
+				PRODUCT_NAME = FBOVBOdemo;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = ./build;
 				WRAPPER_EXTENSION = app;
@@ -340,7 +339,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "PBOVBOdemo" */ = {
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "FBOVBOdemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4B08A954540054247B /* Debug */,
@@ -349,7 +348,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "PBOVBOdemo" */ = {
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "FBOVBOdemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
