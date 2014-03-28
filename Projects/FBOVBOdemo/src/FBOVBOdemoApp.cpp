@@ -66,8 +66,7 @@ void FBOVBOdemoApp::prepareSettings( Settings *settings){
 
 void FBOVBOdemoApp::setup()
 {
-    
-    timeMult=1.0;
+    timeMult=0.5;
     
     console() << glGetString(GL_VERSION) << endl;
     
@@ -77,17 +76,18 @@ void FBOVBOdemoApp::setup()
     format.setColorInternalFormat(GL_RGB_FLOAT32_APPLE);
     
     mFBO = gl::Fbo( FBO_W, FBO_H, format );
+
     
     gl::VboMesh::Layout layout;
     layout.setStaticIndices();
     layout.setStaticPositions();
     layout.setStaticTexCoords2d();
-    layout.setStaticNormals();
-    
-    mVboMesh = gl::VboMesh::create( FBO_W*FBO_H, FBO_W*FBO_H, layout, GL_TRIANGLES );
 
     
-//    vector<Vec3f> points;
+    mVboMesh = gl::VboMesh::create( FBO_W*FBO_H, FBO_W*FBO_H, layout, GL_POINTS );
+
+    
+    vector<Vec3f> points;
 
     vector<uint32_t> indices;
     vector<Vec2f> texCoords;
@@ -103,7 +103,8 @@ void FBOVBOdemoApp::setup()
 //    mVboMesh->bufferPositions(points);
     mVboMesh->bufferIndices(indices);
     mVboMesh->bufferTexCoords2d( 0, texCoords );
-   
+    mVboMesh->unbindBuffers();
+
     //SETUP CAMERA
     CameraPersp cam = mMayaCam.getCamera();
     cam.setCenterOfInterestPoint(Vec3f::zero());
@@ -120,7 +121,7 @@ void FBOVBOdemoApp::setup()
     controls = params::InterfaceGl::create("Controls", toPixels(Vec2i(200,100)));
     controls->addParam("Time multiplier", &timeMult, "min=0.0 max=5.0 step=0.001");
     TwDefine( "Controls position='10 50' ");
-    
+        
 }
 
 void FBOVBOdemoApp::loadShaders(){
@@ -140,7 +141,6 @@ void FBOVBOdemoApp::loadShaders(){
 		std::cout << "Unable to load shader" << std::endl;
 	}
     mTexture = gl::Texture::create( loadImage(  getAssetPath( fs::path( "particle.png" ) ).string() ));
-    
 }
 
 void FBOVBOdemoApp::update()
@@ -157,21 +157,21 @@ void FBOVBOdemoApp::calcShaderNoise()
     mFBO.bindFramebuffer();
     shader->bind();
     
+
     shader->uniform("time", (float)getElapsedSeconds()*timeMult);
-    Vec2f res = Vec2f((mFBO.getWidth()),(mFBO.getHeight()));
+    Vec2f res = Vec2f((FBO_W),(FBO_H));
     shader->uniform("resolution", res);
     Vec2f mousenorm = Vec2f(float(getMousePos().x)/res.x, float(getMousePos().y)/res.y);
     shader->uniform("mouse", mousenorm);
     gl::clear( Color( 0, 0, 0 ) );
-    gl::setMatricesWindow((mFBO.getSize()));
-    gl::setViewport((mFBO.getBounds()));
+    gl::setMatricesWindow((Vec2i(FBO_W, FBO_H)));
+    gl::setViewport( (mFBO.getBounds()));
     
     gl::drawSolidRect( (mFBO.getBounds()) );
     
     shader->unbind();
     
     mFBO.unbindFramebuffer();
-    
 }
 
 void FBOVBOdemoApp::draw()
@@ -179,12 +179,10 @@ void FBOVBOdemoApp::draw()
 	// clear out the window with black
 	gl::clear( ColorA( 0, 0, 0, 0.0 ) );
     
-    gl::color(1.0, 0.0, 1.0, 1.0);
+    gl::color(1.0, 1.0, 1.0, 1.0);
     
     gl::setMatrices(mMayaCam.getCamera());
     gl::setViewport(toPixels(getWindowBounds()));
-    gl::enableAlphaBlending();
-    
     gl::enableAlphaBlending();
     
     mFBO.bindTexture();
@@ -192,7 +190,6 @@ void FBOVBOdemoApp::draw()
     displaceShader->bind();
     displaceShader->uniform("tex", 0);
 
-    
     gl::draw( mVboMesh );
     
     displaceShader->unbind();
@@ -211,12 +208,13 @@ void FBOVBOdemoApp::draw()
     
     if (mRenderTexture)
     {
+        gl::color(1.0, 1.0, 1.0, 1.0);
         gl::draw(mFBO.getTexture());
     }
     
     gl::drawString( toString(getAverageFps()) , Vec2f(10.0,15.0));
     gl::drawString("Particles: " + toString(FBO_H*FBO_W), Vec2f(10.0,30.0));
-    
+//
     controls->draw();
 }
 

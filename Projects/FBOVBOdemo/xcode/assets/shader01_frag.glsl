@@ -2515,6 +2515,8 @@ vec4 Hermite3D_Deriv( vec3 P )
 
 void main(void){
 
+    
+    
     vec4 noiseCube = (vec4(
                          Cubist3D( vec3(gl_FragCoord.x/resolution.x*0.5,gl_FragCoord.y/resolution.y*0.1, time*0.1), vec2(0,1.0) ),
                          Cubist3D( vec3(gl_FragCoord.x/resolution.x*0.1,gl_FragCoord.y/resolution.y*.5, time*0.5), vec2(0,1.0) ),
@@ -2534,7 +2536,7 @@ void main(void){
                             1.0
                            );
     
-    gl_FragColor = Perlin3D_Deriv( vec3(gl_FragCoord.x/resolution.x*3.5,gl_FragCoord.y/resolution.y*3.1, time*.1) ) - cnoise(vec2(gl_FragCoord.x/resolution.x*1.0,gl_FragCoord.y/resolution.y*1.0))*0.01    ;// noisePerlin;
+    gl_FragColor = noisePerlin;// - cnoise(vec2(gl_FragCoord.x/resolution.x*1.0,gl_FragCoord.y/resolution.y*1.0))*0.01    ;// noisePerlin;
     
 //        Cellular3D(vec3(gl_FragCoord.x/resolution.x,gl_FragCoord.y/resolution.y+time, time)),
 //        Cellular3D(vec3(gl_FragCoord.x/resolution.x,gl_FragCoord.y/resolution.y, time+time)),
