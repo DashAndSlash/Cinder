@@ -58,7 +58,7 @@ public:
 
 void FBOVBOdemoApp::prepareSettings( Settings *settings){
     
-    settings->enableHighDensityDisplay();
+//    settings->enableHighDensityDisplay();
     gl::disableVerticalSync();
     
 }

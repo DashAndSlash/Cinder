@@ -118,7 +118,7 @@ void PBOVBOdemoApp::setup()
     
     glEnable(GL_POINT_SMOOTH);
     glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
-    glEnable( GL_MULTISAMPLE_ARB );
+    //glEnable( GL_MULTISAMPLE_ARB );
     
     controls = params::InterfaceGl::create("Controls", toPixels(Vec2i(200,100)));
     controls->addParam("Time multiplier", &timeMult, "min=0.0 max=5.0 step=0.001");
