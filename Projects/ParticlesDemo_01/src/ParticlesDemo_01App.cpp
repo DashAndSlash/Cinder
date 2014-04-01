@@ -158,9 +158,9 @@ void ParticlesDemo_01App::setup()
     {
 		for (int i=0; i<I; i++) {
             gl::texCoord ( randFloat(-400.0f, 400), randFloat(-400.0, 400), randFloat(-400, 400));
-            gl::vertex (i,0.0f, 0.0f);
+            gl::vertex (i+0.5,0.5f, 0.0f);
 			gl::texCoord (50.0f,(float)i/(float)I,(float)(i+1.0f)/(float)I);
-			gl::vertex (i,1.0f, 0.0f);
+			gl::vertex (i+0.5,1.5f, 0.0f);
 		}
         
     }
@@ -247,7 +247,7 @@ void ParticlesDemo_01App::update()
     gl::clear( Color( 0, 0, 0 ) );
     gl::color(1.0, 1.0, 1.0, 1.0);
     gl::setViewport( mDataBuffer[mNextIndex].getBounds() );
-
+    gl::setMatricesWindow(mDataBuffer[mNextIndex].getSize());
     mDataBuffer[mIndex].bindTexture(0,0);
     mDataBuffer[mIndex].bindTexture(1,1);
     mDataBuffer[mIndex].bindTexture(2,2);
@@ -269,14 +269,16 @@ void ParticlesDemo_01App::update()
     gl::clear( Color( 0, 0, 0 ) );
     gl::color(1.0, 1.0, 1.0, 1.0);
     gl::setViewport( mDataBuffer[mNextIndex].getBounds() );
-    
+    gl::setMatricesWindow(mDataBuffer[mNextIndex].getSize());
     mDataBuffer[mIndex].bindTexture(0,0);
     mDataBuffer[mIndex].bindTexture(1,1);
-    mForceData.bindTexture(2,0);
+    mDataBuffer[mIndex].bindTexture(2,2);
+    mForceData.bindTexture(3,0);
 
     mVelocity->uniform("positions", 0);
     mVelocity->uniform("velocities", 1);
     mVelocity->uniform("attractors", 2);
+    mVelocity->uniform("infos", 2);
     
     mVelocity->uniform("dataW", mForceData.getWidth());
     mVelocity->uniform("dataH", mForceData.getHeight());
@@ -287,33 +289,33 @@ void ParticlesDemo_01App::update()
     
     mIndex = (mIndex+1)%2;
     mNextIndex = (mIndex+1)%2;
-//
-//    
-//    mDataBuffer[mNextIndex].bindFramebuffer();
-//    mUpdate->bind();
-//    gl::clear( Color( 0, 0, 0 ) );
-//    gl::color(1.0, 1.0, 1.0, 1.0);
-//    gl::setViewport( mDataBuffer[mNextIndex].getBounds() );
-//    
-//    mDataBuffer[mIndex].bindTexture(0,0);
-//    mDataBuffer[mIndex].bindTexture(1,1);
-//    mDataBuffer[mIndex].bindTexture(2,2);
-//    
-//    mUpdate->uniform("positions", 0);
-//    mUpdate->uniform("velocities", 1);
-//    mUpdate->uniform("infos", 2);
-//    float deltaTime = getElapsedSeconds()-mLastElapsedSeconds;
-//    mUpdate->uniform("deltaTime", deltaTime );
-//    
-//    
-//    gl::drawSolidRect(mDataBuffer[mNextIndex].getBounds());
-//    mUpdate->unbind();
-//    mDataBuffer[mNextIndex].unbindFramebuffer();
-//    mDataBuffer[mIndex].unbindTexture();
-//    mLastElapsedSeconds=getElapsedSeconds();
-//    
-//    mIndex = (mIndex+1)%2;
-//    mNextIndex = (mIndex+1)%2;
+
+    
+    mDataBuffer[mNextIndex].bindFramebuffer();
+    mUpdate->bind();
+    gl::clear( Color( 0, 0, 0 ) );
+    gl::color(1.0, 1.0, 1.0, 1.0);
+    gl::setViewport( mDataBuffer[mNextIndex].getBounds() );
+    gl::setMatricesWindow(mDataBuffer[mNextIndex].getSize());
+    mDataBuffer[mIndex].bindTexture(0,0);
+    mDataBuffer[mIndex].bindTexture(1,1);
+    mDataBuffer[mIndex].bindTexture(2,2);
+    
+    mUpdate->uniform("positions", 0);
+    mUpdate->uniform("velocities", 1);
+    mUpdate->uniform("infos", 2);
+    float deltaTime = getElapsedSeconds()-mLastElapsedSeconds;
+    mUpdate->uniform("deltaTime", deltaTime );
+    
+    
+    gl::drawSolidRect(mDataBuffer[mNextIndex].getBounds());
+    mUpdate->unbind();
+    mDataBuffer[mNextIndex].unbindFramebuffer();
+    mDataBuffer[mIndex].unbindTexture();
+    mLastElapsedSeconds=getElapsedSeconds();
+    
+    mIndex = (mIndex+1)%2;
+    mNextIndex = (mIndex+1)%2;
 }
 
 void ParticlesDemo_01App::draw()
@@ -321,7 +323,7 @@ void ParticlesDemo_01App::draw()
     gl::enableDepthRead();
     gl::enableDepthWrite();
 //	clear out the window with black
-	gl::clear( Color( 1, 0, 0 ) );
+	gl::clear( Color( 0, 0, 0 ) );
     
     gl::color(1.0, 1.0, 1.0, 1.0);
     
@@ -331,7 +333,7 @@ void ParticlesDemo_01App::draw()
     
     mDisplay->bind();
     
-    mDataBuffer[mNextIndex].bindTexture(0,0);
+    mDataBuffer[mIndex].bindTexture(0,0);
     mDisplay->uniform("positions", 0);
     gl::draw(mVboMesh);
     

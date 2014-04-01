@@ -3,6 +3,7 @@
 uniform sampler2D positions;
 uniform sampler2D velocities;
 uniform sampler2D attractors;
+uniform sampler2D infos;
 
 uniform int dataW; // TODO: move this for all shader stages into vertex shader
 uniform int dataH;
@@ -29,4 +30,6 @@ void main(){
 	}
 	
 	gl_FragData[1] = vec4 (newVelocity,1);
+    gl_FragData[0].rgb = position;
+    gl_FragData[2] = texture2D(infos,gl_TexCoord[0].xy);
 }

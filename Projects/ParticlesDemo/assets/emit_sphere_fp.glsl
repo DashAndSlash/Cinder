@@ -23,7 +23,7 @@ void main(){
 	vec4 newInf = inf;
 	
 	// only emit if slot empty
-	if (inf.x<=0) {
+	if (inf.x==0) {
 		float theta = rand(gl_TexCoord[0].xy)*2*3.1417;
 		float phi = rand(gl_TexCoord[0].xy+vec2(100,0))*2*3.1417;
 		float r = rand(gl_TexCoord[0].xy+vec2(200,0))*1.1;
@@ -34,7 +34,7 @@ void main(){
 		
 		newPos = vec4(x,y,z,1);
 		newVel = vec4(x,y,y,1);
-		newVel = vec4(0.0,0.0,0.0,1.0);
+//		newVel = vec4(0.0,0.0,0.0,1.0);
 		float lifeTime = rand(gl_TexCoord[0].xy+vec2(300,0))*10.0;
 		newInf = vec4(lifeTime,0,0,1);
 	}

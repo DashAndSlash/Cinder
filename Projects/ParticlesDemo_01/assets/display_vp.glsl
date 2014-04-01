@@ -14,6 +14,6 @@ void main(){
 	float c = pow(e, gl_Position.y);
 	//float c = gl_Position.y / 1000.0;
 	
-	gl_FrontColor.rgb = vec3(c);
+	gl_FrontColor.rgb = vec3(1);
 
 }           
