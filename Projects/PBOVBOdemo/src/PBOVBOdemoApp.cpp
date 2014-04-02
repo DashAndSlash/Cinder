@@ -13,9 +13,6 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-
-
-
 class PBOVBOdemoApp : public AppNative {
   public:
     void prepareSettings( Settings *settings);
@@ -61,7 +58,6 @@ void PBOVBOdemoApp::prepareSettings( Settings *settings){
     gl::disableVerticalSync();
     
 }
-
 
 void PBOVBOdemoApp::setup()
 {

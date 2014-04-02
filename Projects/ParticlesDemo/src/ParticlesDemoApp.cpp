@@ -60,10 +60,13 @@ class ParticlesDemoApp : public AppNative {
     Vec3f                   _constraints[1];
     Vec3f                   _constraintsNormal[1];
     params::InterfaceGlRef  controls;
+    
+    float                   _prevElapsedTime;
 };
 
 void ParticlesDemoApp::setup()
 {
+    _prevElapsedTime = 0;
     _index = 0;
     _prevIndex = 1;
     
@@ -161,9 +164,6 @@ void ParticlesDemoApp::setup()
 }
 
 void ParticlesDemoApp::swap() {
-//    gl::Fbo tmp = _myDataBuffer[_index];
-//    _myDataBuffer[_index] = _myDataBuffer[_prevIndex];
-//    _myDataBuffer[_prevIndex] = tmp;
     _index = (_index+1)%2;
     _prevIndex = (_index+1)%2;
 }
@@ -263,7 +263,7 @@ void ParticlesDemoApp::update()
     _myUpdateShader->uniform("constraintsPos", _constraints, 1);
     _myUpdateShader->uniform("constraintsNorm", _constraintsNormal, 1);
     
-    float deltaT = 0.016f;
+    float deltaT = getElapsedSeconds()-_prevElapsedTime;
     _myUpdateShader->uniform("deltaTime", deltaT);
     _myUpdateShader->uniform("dataW", _myConstraintData.getWidth());
     _myUpdateShader->uniform("dataH", _myConstraintData.getHeight());
@@ -274,6 +274,7 @@ void ParticlesDemoApp::update()
     _myDataBuffer[_index].unbindFramebuffer();
     
     swap();
+    _prevElapsedTime = getElapsedSeconds();
 }
 
 void ParticlesDemoApp::draw()
@@ -316,10 +317,10 @@ void ParticlesDemoApp::draw()
     
     gl::begin(GL_QUADS);
     {
-        gl::vertex(_plane.getPoint()+p0);
-        gl::vertex(_plane.getPoint()+p1);
-        gl::vertex(_plane.getPoint()-p0);
-        gl::vertex(_plane.getPoint()-p1);
+        gl::vertex(_plane.getPoint()+p0*100);
+        gl::vertex(_plane.getPoint()+p1*100);
+        gl::vertex(_plane.getPoint()-p0*100);
+        gl::vertex(_plane.getPoint()-p1*100);
 
     }
     gl::end();

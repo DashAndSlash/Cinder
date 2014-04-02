@@ -3,5 +3,5 @@
 
 void main(){
 	gl_FragColor = gl_Color;
-    gl_FragColor.a = 0.16;
+    gl_FragColor.a = 0.15;
 }

@@ -32,16 +32,16 @@ void main(){
 	
 	// constraints
 	for (int i=0; i<1; i++) {
-		vec3 p = constraintsPos[0];// vec3(0,-0.25,0);//texture2D (constraints, lookup(i,0)).xyz*0;
-		vec3 n = constraintsNorm[0]; //normalize(vec3(0.0,0.0,0.0)-p);//texture2D (constraints, lookup(i,1)).xyz;
+		vec3 p = constraintsPos[i];// vec3(0,-0.25,0);//texture2D (constraints, lookup(i,0)).xyz*0;
+		vec3 n = constraintsNorm[i]; //normalize(vec3(0.0,0.0,0.0)-p);//texture2D (constraints, lookup(i,1)).xyz;
 		
 		// check distance to plane
-		float d = dot (newPosition-p, n);
+		float d = dot (n, newPosition-p);
 		
 		// reflect
 		if (d<0) {
 //			newVelocity = newVelocity*0;
-			newVelocity = (newVelocity - 2*dot (n, newVelocity)*n)*0.5;
+			newVelocity = (newVelocity - 2*dot (n, newVelocity)*n)*0.57;
 		}
 		
 //		if (newPosition.y < p.y) newVelocity*=0;
