@@ -9,6 +9,7 @@
 #include "cinder/Plane.h"
 #include "cinder/params/Params.h"
 
+
 using namespace ci;
 using namespace ci::app;
 using namespace std;
@@ -46,6 +47,9 @@ class FlockingApp : public AppNative {
     int                     _index;
     int                     _prevIndex;
     float                   _prevElapsedTime;
+    params::InterfaceGlRef  controls;
+    ColorA                  _color;
+    Vec3f                   _avoidSphere;
 };
 
 void FlockingApp::swap() {
@@ -81,11 +85,16 @@ void FlockingApp::reset()
 
 void FlockingApp::setup()
 {
+    
+    _color = ColorA::white();
+    
+    glEnable(GL_POINT_SMOOTH);
+    glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
     gl::disableVerticalSync();
     _prevElapsedTime = 0;
     _index = 0;
     _prevIndex = 1;
-    _textureNoise = gl::Texture::create(loadImage(loadAsset("perlin.jpg")));
+    _textureNoise = gl::Texture::create(loadImage(loadAsset("rgb_noise.jpg")));
     
     //SETUP CAMERA
     CameraPersp cam = mMayaCam.getCamera();
@@ -120,10 +129,14 @@ void FlockingApp::setup()
     
     loadShaders();
     reset();
+    
+    controls = params::InterfaceGl::create("Controls", toPixels(Vec2i(200,100)));
+    controls->addParam("Color", &_color);
 }
 
 void FlockingApp::update()
 {
+    _avoidSphere = Vec3f( sin(getElapsedSeconds())*5.0, cos(getElapsedSeconds())*5.0,0.0);
     gl::disableAlphaBlending();
     _myDataBuffer[_index].bindFramebuffer();
 //    gl::clear( Color( 0, 0, 0 ) );
@@ -141,6 +154,8 @@ void FlockingApp::update()
     _myVelocityShader->uniform("infos", 2);
     _myVelocityShader->uniform("initPos", 3);
     _myVelocityShader->uniform("time", (float)getElapsedSeconds());
+    
+    _myVelocityShader->uniform("avoid", _avoidSphere);
     float deltaT = getElapsedSeconds() - _prevElapsedTime;
     _myVelocityShader->uniform("deltaT", deltaT);
     
@@ -191,9 +206,12 @@ void FlockingApp::draw()
     _myDisplayShader->bind();
     _myDataBuffer[_prevIndex].bindTexture(0,0);
     _myDisplayShader->uniform("positions", 0);
+    _myDisplayShader->uniform("color", _color);
     gl::draw(_myMesh);
     _myDisplayShader->unbind();
     _myDataBuffer[_prevIndex].unbindTexture();
+    
+    gl::drawSphere(_avoidSphere, 1.0);
     
     gl::drawCoordinateFrame(1.0f*0.05, 0.2f*0.05, 0.05f*0.05);
     
@@ -205,6 +223,8 @@ void FlockingApp::draw()
     gl::color(1.0, 1.0, 1.0, 1.0);
 //    gl::draw( _myDataBuffer[_prevIndex].getTexture(2), toPixels(Area(0,0,100,100)));
     gl::drawString("FPS: " + toString(getAverageFps()), Vec2f(10.0f,10.0f));
+    
+    controls->draw();
 }
 
 
@@ -260,4 +280,4 @@ void FlockingApp::resize( )
     mMayaCam.setCurrentCam(cam);
 }
 
-CINDER_APP_NATIVE( FlockingApp, RendererGl )
+CINDER_APP_NATIVE( FlockingApp, RendererGl(16) )

@@ -37,7 +37,8 @@ void main(){
 		
 		// check distance to plane
 		float d = dot (n, newPosition-p);
-		
+        
+//		float d1 = dot (n, position-p);
 		// reflect
 		if (d<0) {
 //			newVelocity = newVelocity*0;
@@ -55,6 +56,7 @@ void main(){
 	}
 	else {
 		newInfo.x = 0;
+//        newVelocity = vec4(0);
 	}
 	
 	gl_FragData[0] = vec4(newPosition,1);

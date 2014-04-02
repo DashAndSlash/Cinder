@@ -8,6 +8,10 @@ uniform sampler2D initPos;
 uniform float time;
 uniform float deltaT;
 
+uniform vec3   avoid;
+
+uniform float attractor;
+
 float rand(vec2 co){
 	return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
 }
@@ -2522,15 +2526,15 @@ void main(){
 	
 	vec4 newVelocity = texture2D (velocities, gl_TexCoord[0].xy);
     vec4 newPos = texture2D(positions,gl_TexCoord[0].xy);
-    vec4 noise = vec4( Perlin3D( vec3(newPos.x*0.001*sin(time), newPos.yz*0.1 )),
-                      Perlin3D( vec3(newPos.x*0.1, newPos.y*0.001*cos(time), newPos.z*0.1 )),
-                      Perlin3D( vec3(newPos.xy*0.1, newPos.z*0.001*tan(time) )),
+    vec4 noise = vec4( Perlin3D( vec3(newPos.x*0.01+sin(time), newPos.yz*0.1 )),
+                      Perlin3D( vec3(newPos.x*0.1, newPos.y*0.01+cos(time), newPos.z*0.1 )),
+                      Perlin3D( vec3(newPos.xy*0.1, newPos.z*0.01+tan(time) )),
                       1.0 );
     
-    vec4 noise_2 = vec4( Hermite3D( vec3(newPos.x*noise.x, newPos.yz*0.1 )),
-                      Hermite3D( vec3(newPos.x*0.1, newPos.y*noise.y, newPos.z*0.1 )),
-                      Hermite3D( vec3(newPos.xy*0.1, newPos.z*noise.z )),
-                      1.0 );
+//    vec4 noise_2 = vec4( Hermite3D( vec3(newPos.x, newPos.yz*0.1 )),
+//                      Hermite3D( vec3(newPos.x*0.1, newPos.y, newPos.z*0.1 )),
+//                      Hermite3D( vec3(newPos.xy*0.1, newPos.z )),
+//                      1.0 );
     
     vec4 force = noise;
     
@@ -2540,6 +2544,16 @@ void main(){
     float sl = d.x*d.x + d.y*d.y + d.z*d.z;
     
 //    force.xyz += 0.1*d / (sl);
+    
+    //repulsion
+    
+    float distance1 = distance(vec4(avoid,1.0) , newPos);
+    vec4 direction1 = vec4(avoid,1.0) - newPos;
+    
+    if(distance1 < 300.0)
+    {
+        force -=  10.0*normalize(direction1)*(1-distance1/300.0 )  ;
+    }
     
     newVelocity.xyz += force.xyz*deltaT;
     
@@ -2551,7 +2565,7 @@ void main(){
         newPos += newVelocity;
 	}
 	else {
-        lifeTime = rand(gl_TexCoord[0].xy)*10.0;
+        lifeTime = rand(gl_TexCoord[0].xy)*30.0;
 		newPos = texture2D(initPos,gl_TexCoord[0].xy)*10.0;
         newVelocity = vec4(0.0);
 	}

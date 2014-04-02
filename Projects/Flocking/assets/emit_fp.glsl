@@ -13,9 +13,9 @@ float rand(vec2 co){
 void main(){
 
     vec2 st = gl_TexCoord[0].xy;
-	vec4 pos = texture2D (positions, st);
+	vec4 pos = texture2D (positions, st)*10;
 		
-	gl_FragData[0] = pos*10.0;
+	gl_FragData[0] = pos;
 	gl_FragData[1] = vec4(0.0);//rand(st+200),rand(st+100),rand(st+300),1.0);	// no initial velocity
-	gl_FragData[2] = vec4(0.2,1,1,1.0);    // lifetime 1 second
+	gl_FragData[2] = vec4(0.0,1,1,1.0);    // lifetime 1 second
 }

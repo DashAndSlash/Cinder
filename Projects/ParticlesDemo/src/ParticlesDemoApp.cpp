@@ -26,7 +26,7 @@ class ParticlesDemoApp : public AppNative {
     void loadShaders();
     
     void swap();
-    
+    void reset();
     
     
     gl::Fbo                 _myDataBuffer[2];
@@ -62,10 +62,63 @@ class ParticlesDemoApp : public AppNative {
     params::InterfaceGlRef  controls;
     
     float                   _prevElapsedTime;
+    Vec3f                    _gravity;
 };
+
+void ParticlesDemoApp::reset()
+{
+    gl::Fbo::Format format;
+    format.setColorInternalFormat(GL_RGB_FLOAT32_APPLE);
+    format.enableColorBuffer(true,3);
+    format.enableDepthBuffer(false,false);
+    
+    _myDataBuffer[0] = gl::Fbo( particleW, particleH, format );
+    
+    _myDataBuffer[0].bindFramebuffer();
+    gl::clear(ColorA(0.0,0.0,0.0,1.0));
+    _myDataBuffer[0].unbindFramebuffer();
+    
+    _myDataBuffer[1] = gl::Fbo( particleW, particleH, format );
+    _myDataBuffer[1].bindFramebuffer();
+    gl::clear(ColorA(0.0,0.0,0.0,1.0));
+    _myDataBuffer[1].unbindFramebuffer();
+    
+    gl::Fbo::Format format2;
+    format2.setColorInternalFormat(GL_RGB_FLOAT32_APPLE);
+    format2.enableColorBuffer(true,1);
+    format2.enableDepthBuffer(false,false);
+    _myConstraintData = gl::Fbo( 5,5, format2);
+    
+    
+    _myInitValueShader->bind();
+    _myConstraintData.bindFramebuffer();
+    
+    gl::clear(Color(0.0,0.0,0.0));
+    gl::setViewport(_myConstraintData.getBounds());
+    gl::setMatricesWindow(_myConstraintData.getSize());
+    
+    gl::begin(GL_POINTS);
+    
+    gl::texCoord (0.0f, -150.0f, 0.0f);
+    gl::vertex(0.0f,0.0f);
+    gl::texCoord (0.5f/2.5f, 1.0f/2.5f, 0.0f);
+    gl::vertex(0.0f,0.0f);
+    
+    gl::texCoord (0.0f, -150.0f, 0.0f);
+    gl::vertex(0.0f,0.0f);
+    gl::texCoord (-0.5f/2.5f, 1.0f/2.5f, 0.0f);
+    gl::vertex(0.0f,0.0f);
+    
+    gl::end();
+    
+    _myConstraintData.unbindFramebuffer();
+    _myInitValueShader->unbind();
+
+}
 
 void ParticlesDemoApp::setup()
 {
+    _gravity = Vec3f(0.0,-0.1,0.0);
     _prevElapsedTime = 0;
     _index = 0;
     _prevIndex = 1;
@@ -107,59 +160,16 @@ void ParticlesDemoApp::setup()
     
     loadShaders();
     
-    gl::Fbo::Format format;
-    format.setColorInternalFormat(GL_RGB_FLOAT32_APPLE);
-    format.enableColorBuffer(true,4);
-    format.enableDepthBuffer(false,false);
-
-    _myDataBuffer[0] = gl::Fbo( particleW, particleH, format );
-    
-    _myDataBuffer[0].bindFramebuffer();
-    gl::clear(ColorA(0.0,0.0,0.0,1.0));
-    _myDataBuffer[0].unbindFramebuffer();
-    
-    _myDataBuffer[1] = gl::Fbo( particleW, particleH, format );
-    _myDataBuffer[1].bindFramebuffer();
-    gl::clear(ColorA(0.0,0.0,0.0,1.0));
-    _myDataBuffer[1].unbindFramebuffer();
+    reset();
 	
     _myEmitTexture = gl::Texture::create(loadImage(loadAsset("emit01.png")));
     
-    gl::Fbo::Format format2;
-    format2.setColorInternalFormat(GL_RGB_FLOAT32_APPLE);
-    format2.enableColorBuffer(true,1);
-    format2.enableDepthBuffer(false,false);
-    _myConstraintData = gl::Fbo( 5,5, format2);
-    
-    
-    _myInitValueShader->bind();
-    _myConstraintData.bindFramebuffer();
-    
-    gl::clear(Color(0.0,0.0,0.0));
-    gl::setViewport(_myConstraintData.getBounds());
-    gl::setMatricesWindow(_myConstraintData.getSize());
-    
-    gl::begin(GL_POINTS);
-    
-    gl::texCoord (0.0f, -150.0f, 0.0f);
-    gl::vertex(0.0f,0.0f);
-    gl::texCoord (0.5f/2.5f, 1.0f/2.5f, 0.0f);
-    gl::vertex(0.0f,0.0f);
-    
-    gl::texCoord (0.0f, -150.0f, 0.0f);
-    gl::vertex(0.0f,0.0f);
-    gl::texCoord (-0.5f/2.5f, 1.0f/2.5f, 0.0f);
-    gl::vertex(0.0f,0.0f);
-    
-    gl::end();
-    
-    _myConstraintData.unbindFramebuffer();
-    _myInitValueShader->unbind();
     
     //UI
     controls = params::InterfaceGl::create("Controls", toPixels(Vec2i(200,100)));
     controls->addParam("Plane pos point1", &_planePos);
     controls->addParam("Plane norm point1", &_planeNorm);
+    controls->addParam("Gravity", &_gravity);
 //    TwDefine( "Controls position='10 50' ");
 }
 
@@ -197,24 +207,24 @@ void ParticlesDemoApp::update()
     swap();
     
     
-    _myDataBuffer[_index].bindFramebuffer();
-//    gl::clear( Color( 0, 0, 0 ) );
-    gl::color(1.0, 1.0, 1.0, 1.0);
-    gl::setViewport( _myDataBuffer[_index].getBounds() );
-    gl::setMatricesWindow(_myDataBuffer[_index].getSize());
-    _myThruShader->bind();
-    _myDataBuffer[_prevIndex].bindTexture(0,0);
-    _myDataBuffer[_prevIndex].bindTexture(1,1);
-    _myDataBuffer[_prevIndex].bindTexture(2,2);
-    
-    _myThruShader->uniform("positions", 0);
-    _myThruShader->uniform("velocities", 1);
-    _myThruShader->uniform("infos", 2);
-    
-    gl::drawSolidRect(_myDataBuffer[_index].getBounds());
-    _myThruShader->unbind();
-    _myDataBuffer[_index].unbindFramebuffer();
-    _myDataBuffer[_prevIndex].unbindTexture();
+//    _myDataBuffer[_index].bindFramebuffer();
+////    gl::clear( Color( 0, 0, 0 ) );
+//    gl::color(1.0, 1.0, 1.0, 1.0);
+//    gl::setViewport( _myDataBuffer[_index].getBounds() );
+//    gl::setMatricesWindow(_myDataBuffer[_index].getSize());
+//    _myThruShader->bind();
+//    _myDataBuffer[_prevIndex].bindTexture(0,0);
+//    _myDataBuffer[_prevIndex].bindTexture(1,1);
+//    _myDataBuffer[_prevIndex].bindTexture(2,2);
+//    
+//    _myThruShader->uniform("positions", 0);
+//    _myThruShader->uniform("velocities", 1);
+//    _myThruShader->uniform("infos", 2);
+//    
+//    gl::drawSolidRect(_myDataBuffer[_index].getBounds());
+//    _myThruShader->unbind();
+//    _myDataBuffer[_index].unbindFramebuffer();
+//    _myDataBuffer[_prevIndex].unbindTexture();
     
 //    swap();
 
@@ -230,6 +240,7 @@ void ParticlesDemoApp::update()
     _myVelocityShader->uniform("positions", 0);
     _myVelocityShader->uniform("velocities", 1);
     _myVelocityShader->uniform("infos", 2);
+    _myVelocityShader->uniform("gravity", _gravity);
 
     gl::drawSolidRect(_myDataBuffer[_index].getBounds());
 
@@ -371,6 +382,9 @@ void ParticlesDemoApp::keyUp( KeyEvent event )
         break;
         case KeyEvent::KEY_f:
         setFullScreen(!isFullScreen());
+        break;
+        case KeyEvent::KEY_r:
+        reset();
         break;
         default:
         break;
