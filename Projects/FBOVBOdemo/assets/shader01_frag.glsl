@@ -2538,7 +2538,7 @@ void main(void){
                             1.0
                            );
     
-    gl_FragColor = noisePerlin;// - cnoise(vec2(gl_FragCoord.x/resolution.x*1.0,gl_FragCoord.y/resolution.y*1.0))*0.01    ;// noisePerlin;
+    gl_FragColor = noiseCell;// - cnoise(vec2(gl_FragCoord.x/resolution.x*1.0,gl_FragCoord.y/resolution.y*1.0))*0.01    ;// noisePerlin;
     
 //        Cellular3D(vec3(gl_FragCoord.x/resolution.x,gl_FragCoord.y/resolution.y+time, time)),
 //        Cellular3D(vec3(gl_FragCoord.x/resolution.x,gl_FragCoord.y/resolution.y, time+time)),

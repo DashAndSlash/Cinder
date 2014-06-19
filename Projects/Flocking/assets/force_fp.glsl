@@ -2550,9 +2550,9 @@ void main(){
     float distance1 = distance(vec4(avoid,1.0) , newPos);
     vec4 direction1 = vec4(avoid,1.0) - newPos;
     
-    if(distance1 < 300.0)
+    if(distance1 < 300.0 && distance1 >5.0)
     {
-        force -=  10.0*normalize(direction1)*(1-distance1/300.0 )  ;
+        force +=  10.0*normalize(direction1)*(1-distance1/300.0 )  ;
     }
     
     newVelocity.xyz += force.xyz*deltaT;

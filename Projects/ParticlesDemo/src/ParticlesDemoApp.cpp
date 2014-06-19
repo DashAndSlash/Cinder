@@ -63,10 +63,14 @@ class ParticlesDemoApp : public AppNative {
     
     float                   _prevElapsedTime;
     Vec3f                    _gravity;
+    
+    float                   _bounce;
 };
 
 void ParticlesDemoApp::reset()
 {
+    
+    _bounce = 1.0;
     gl::Fbo::Format format;
     format.setColorInternalFormat(GL_RGB_FLOAT32_APPLE);
     format.enableColorBuffer(true,3);
@@ -170,6 +174,7 @@ void ParticlesDemoApp::setup()
     controls->addParam("Plane pos point1", &_planePos);
     controls->addParam("Plane norm point1", &_planeNorm);
     controls->addParam("Gravity", &_gravity);
+    controls->addParam("Bounce", &_bounce);
 //    TwDefine( "Controls position='10 50' ");
 }
 
@@ -207,26 +212,26 @@ void ParticlesDemoApp::update()
     swap();
     
     
-//    _myDataBuffer[_index].bindFramebuffer();
-////    gl::clear( Color( 0, 0, 0 ) );
-//    gl::color(1.0, 1.0, 1.0, 1.0);
-//    gl::setViewport( _myDataBuffer[_index].getBounds() );
-//    gl::setMatricesWindow(_myDataBuffer[_index].getSize());
-//    _myThruShader->bind();
-//    _myDataBuffer[_prevIndex].bindTexture(0,0);
-//    _myDataBuffer[_prevIndex].bindTexture(1,1);
-//    _myDataBuffer[_prevIndex].bindTexture(2,2);
-//    
-//    _myThruShader->uniform("positions", 0);
-//    _myThruShader->uniform("velocities", 1);
-//    _myThruShader->uniform("infos", 2);
-//    
-//    gl::drawSolidRect(_myDataBuffer[_index].getBounds());
-//    _myThruShader->unbind();
-//    _myDataBuffer[_index].unbindFramebuffer();
-//    _myDataBuffer[_prevIndex].unbindTexture();
+    _myDataBuffer[_index].bindFramebuffer();
+//    gl::clear( Color( 0, 0, 0 ) );
+    gl::color(1.0, 1.0, 1.0, 1.0);
+    gl::setViewport( _myDataBuffer[_index].getBounds() );
+    gl::setMatricesWindow(_myDataBuffer[_index].getSize());
+    _myThruShader->bind();
+    _myDataBuffer[_prevIndex].bindTexture(0,0);
+    _myDataBuffer[_prevIndex].bindTexture(1,1);
+    _myDataBuffer[_prevIndex].bindTexture(2,2);
     
-//    swap();
+    _myThruShader->uniform("positions", 0);
+    _myThruShader->uniform("velocities", 1);
+    _myThruShader->uniform("infos", 2);
+    
+    gl::drawSolidRect(_myDataBuffer[_index].getBounds());
+    _myThruShader->unbind();
+    _myDataBuffer[_index].unbindFramebuffer();
+    _myDataBuffer[_prevIndex].unbindTexture();
+    
+    swap();
 
     _myDataBuffer[_index].bindFramebuffer();
 //    gl::clear( Color( 0, 0, 0 ) );
@@ -271,8 +276,9 @@ void ParticlesDemoApp::update()
     _myUpdateShader->uniform("velocities", 1);
     _myUpdateShader->uniform("infos", 2);
     _myUpdateShader->uniform("constraints", 3);
-    _myUpdateShader->uniform("constraintsPos", _constraints, 1);
-    _myUpdateShader->uniform("constraintsNorm", _constraintsNormal, 1);
+//    _myUpdateShader->uniform("constraintsPos", _constraints, 1);
+//    _myUpdateShader->uniform("constraintsNorm", _constraintsNormal, 1);
+//    _myUpdateShader->uniform("bounce", _bounce);
     
     float deltaT = getElapsedSeconds()-_prevElapsedTime;
     _myUpdateShader->uniform("deltaTime", deltaT);

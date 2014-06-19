@@ -7,6 +7,9 @@ uniform sampler2D constraints;
 uniform vec3    constraintsPos[1];
 uniform vec3    constraintsNorm[1];
 
+uniform float bounce;
+
+
 uniform float deltaTime;
 
 uniform int dataW;
@@ -37,13 +40,14 @@ void main(){
 		
 		// check distance to plane
 		float d = dot (n, newPosition-p);
+		float dold = dot (n, position-p);
         
 //		float d1 = dot (n, position-p);
 		// reflect
-		if (d<0) {
+//		if (sign(d)!=sign(dold)) {
 //			newVelocity = newVelocity*0;
-			newVelocity = (newVelocity - 2*dot (n, newVelocity)*n)*0.57;
-		}
+//			newVelocity = (newVelocity - 2*dot (n, newVelocity)*n)*bounce;
+//		}
 		
 //		if (newPosition.y < p.y) newVelocity*=0;
 	}

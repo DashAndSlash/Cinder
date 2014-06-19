@@ -11,7 +11,7 @@ void main(){
 	gl_TexCoord[0] = vec4(gl_Vertex.xy,0,0);
 	
 	
-	float c = pow(e, gl_Position.y);
+	//float c = pow(e, gl_Position.y);
 	//float c = gl_Position.y / 1000.0;
 	
 	gl_FrontColor.rgb = vec3(1.0);
